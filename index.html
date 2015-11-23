@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <base href="/">
+
+    <!-- Grunt:Build:CSSSection -->
+
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="bower_components/bootflat/bootflat/css/bootflat.css" rel="stylesheet" />
+    <link href="bower_components/icheck/skins/square/_all.css" rel="stylesheet" />
+    <link href="bower_components/selecter/jquery.fs.selecter.css" rel="stylesheet" />
+    <link href="bower_components/animatecss/animate.css" rel="stylesheet" />
+
+    <link href="css/styles.css" rel="stylesheet" />
+
+    <!-- Grunt:Build:CSSSection -->
+
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+
+</head>
+<body>
+
+<!-- Grunt:Build:JSSection -->
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/jqueryui/index.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/icheck/icheck.js"></script>
+<script src="bower_components/selecter/jquery.fs.selecter.js"></script>
+
+<script src="app/core/view/view.js"></script>
+<script src="app/core/view/plugins/date.js"></script>
+<script src="app/core/view/plugins/partial.js"></script>
+
+<script src="app/core/view/plugins/message/message.js"></script>
+<script type="application/xhtml+xml" data-view="view/plugins/message/message" data-src="app/core/view/plugins/message/message.html"></script>
+
+<script src="app/core/view/plugins/confirm/confirm.js"></script>
+<script type="application/xhtml+xml" data-view="view/plugins/confirm/confirm" data-src="app/core/view/plugins/confirm/confirm.html"></script>
+
+<script src="app/core/base64.js"></script>
+
+<script src="app/core/storage/adapters/cookie.js"></script>
+<script src="app/core/storage/storage.js"></script>
+
+<script src="app/core/dispatcher.js"></script>
+
+<script src="app/core/module/module.js"></script>
+<script src="app/core/router.js"></script>
+
+<script src="app/services/loader.js"></script>
+<script src="app/services/api.js"></script>
+<script src="app/services/user.js"></script>
+<script src="app/services/ui.js"></script>
+
+<script src="app/bootstrap.js"></script>
+
+<script src="app/modules/base.js"></script>
+
+<script src="app/modules/auth/index.js"></script>
+<script type="application/xhtml+xml" data-view="auth/view/index" data-src="app/modules/auth/view/index.html"></script>
+
+<script src="app/modules/layout/index.js"></script>
+<script type="application/xhtml+xml" data-view="layout/view/index" data-src="app/modules/layout/view/index.html"></script>
+
+<script src="app/modules/index/index.js"></script>
+<script type="application/xhtml+xml" data-view="index/view/index" data-src="app/modules/index/view/index.html"></script>
+
+<!-- Grunt:Build:JSSection -->
+
+<!-- Grunt:Build:Config -->
+
+<script>
+    var config = {
+        "endpoint": 'http://simple.backend/'
+    };
+</script>
+
+<!-- Grunt:Build:Config -->
+
+</body>
+</html>

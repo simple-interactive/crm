@@ -1,0 +1,43 @@
+body.auth {
+    background-color: #CCD1D9;
+}
+
+[data-module=auth] img.logo {
+    width: 80%;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+[data-module=auth] [data-error] {
+    display: none;
+}
+
+[data-module=auth] [data-error] .alert {
+    margin-bottom: 15px;
+}
+
+.loader {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.61);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-image: url(/images/loader.gif);
+    z-index: 2;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 40%;
+}
+
+.icheckbox_square-blue, .iradio_square-blue {
+    background-image: url('/images/blue.png');
+}
+
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    .icheckbox_square-blue,
+    .iradio_square-blue {
+        background-image: url(/images/blue@2x.png);
+    }
+}
