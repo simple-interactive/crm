@@ -31,10 +31,18 @@ window.module = function () {
     this.load = function (name, params, element) {
 
         if (!element) {
+
             var container = $('body');
+
             if ($('[data-container=main]').size()) {
                 container = $('[data-container=main]');
             }
+
+            container.prepend('<div data-loaded="true" data-module="' + name + '"></div>');
+            element = $('[data-module=' + name + ']').get();
+        }
+        else {
+            var container = $(element);
             container.prepend('<div data-loaded="true" data-module="' + name + '"></div>');
             element = $('[data-module=' + name + ']').get();
         }

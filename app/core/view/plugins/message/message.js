@@ -23,7 +23,6 @@ $(function () {
         $('#plugin-message').modal();
         $('#plugin-message').on('hidden.bs.modal', function () {
             $('#plugin-message').remove();
-            $('.modal-backdrop').remove();
 
             if (callback) {
                 callback();

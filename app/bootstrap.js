@@ -7,5 +7,8 @@ $(function(){
             module.unloadAll();
             module.load('auth');
         }
+        else {
+            module.load('layout');
+        }
     };
 });

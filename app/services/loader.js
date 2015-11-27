@@ -6,13 +6,14 @@ window.services.loader = function(){
         if (!$('body>.loader').size()) {
             $('body').append(self.loaderTemplate);
         }
-        $('body>.loader').fadeIn('slow');
+        $('body>.loader').animate('fadeIn');
     };
 
     this.hide = function(){
-        $('body>.loader').fadeOut('slow', function(){
-            $(this).remove();
-        });
+
+        $('body>.loader').animate('fadeOut');
+
+        setTimeout("$('body>.loader').remove();", 500);
     };
 
     var self = this;

@@ -23,7 +23,7 @@ window.services.user = function(){
 
         storage.clear();
 
-        self.user    = undefined;
+        self.user = undefined;
 
         services.loader.hide();
 

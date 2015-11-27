@@ -20,6 +20,10 @@ window.services.api = function(){
         $.post([self.config.endpoint, 'auth'].join('/'), data, callback);
     };
 
+    this.getMenus = function(callback){
+        self.call('menu/get', {}, callback);
+    };
+
     this.call = function(method, data, callback){
 
         if (!self.config.endpoint) {

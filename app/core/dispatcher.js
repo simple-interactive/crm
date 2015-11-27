@@ -14,8 +14,6 @@ window.dispatcher = new (function () {
             window.services[service] = new window.services[service]();
         }
 
-        // window.router.start();
-
         self.postDispatch();
     };
 
