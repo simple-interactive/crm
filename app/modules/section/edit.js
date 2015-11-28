@@ -1,13 +1,14 @@
-modules.createMenu = function(){
+modules.editSection = function(){
 
     this.data = {
-        image: undefined,
-        title: undefined
+        id: "menuId",
+        image: "http://bootflat.github.io/img/thumbnail-1.jpg",
+        title: "Бар"
     };
 
     this.init = function () {
 
-        self.view.render('menu/view/create', {}, function(renderedHtml){
+        self.view.render('section/view/edit', self.data, function(renderedHtml){
             $(self.element).html(renderedHtml);
         });
 
@@ -15,7 +16,7 @@ modules.createMenu = function(){
             keyboard: false,
             backdrop: 'static'
         }).on('hidden.bs.modal', function(){
-            module.unload('createMenu');
+            self.unload();
         });
 
         $(self.element).find('input[type=file]').on('change', function(){
@@ -31,12 +32,15 @@ modules.createMenu = function(){
 
             reader.readAsDataURL($(this).get(0).files[0]);
         });
+    };
 
-        $(self.element).find('[data-submit]').on('click', function(){
-            window.view.plugins.message("Caption", "<b>Cont</b> - ent", {"OK": "info", "Cancel": "normal"}, "info", function(){
+    this.unload = function (callback) {
 
-            });
-        });
+        $(self.element).remove();
+
+        if (callback) {
+            callback();
+        }
     };
 
     var self = this;

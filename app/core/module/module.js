@@ -83,12 +83,14 @@ window.module = function () {
         }
 
         if (modules[name].unload && modules[name].loaded) {
-            modules[name].unload();
+            modules[name].unload(function () {
+                modules[name].loaded = false;
+            });
         }
-
-        modules[name].loaded = false;
-
-        $('[data-module=' + name + ']').remove();
+        else {
+            modules[name].loaded = false;
+            $('[data-module=' + name + ']').remove();
+        }
     };
 
     this.unloadAll = function (except) {

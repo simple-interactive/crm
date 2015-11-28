@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-xs-9">
+        <% if (breadcrumbs.length) { %>
+            <ol class="breadcrumb breadcrumb-arrow animated fadeInLeft">
+
+                <% for (var i=0; i < breadcrumbs.length; i++) { %>
+                    <% if (i == breadcrumbs.length - 1) { %>
+                        <li class="active"><span><%= breadcrumbs[i].title %></span></li>
+                    <% } else { %>
+                        <li><a data-nav="back" data-id="<%= i %>"><%= breadcrumbs[i].title %></a></li>
+                    <% } %>
+                <% } %>
+
+            </ol>
+        <% } %>
+    </div>
+    <div class="col-xs-3">
+        <form class="navbar-form navbar-right animated fadeInLeft" role="search">
+            <div class="form-search search-only">
+                <i class="search-icon glyphicon glyphicon-search"></i>
+                <input type="text" class="form-control search-query" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="col-sm-6 col-md-3 animated fadeInLeft">
+    <div class="thumbnail section-list">
+        <div class="img-thumbnail" style="background-image: url();" data-nav="section" data-id="xd3j47cnj9238749783" data-title="Бар"></div>
+        <div class="caption text-center">
+            <h3>Бар</h3>
+            <p><a class="btn btn-warning btn-block" data-edit="true" data-id="menuId" role="button">Редактировать</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6 col-md-3 animated fadeInLeft">
+    <div class="thumbnail add">
+        <div class="img-thumbnail"></div>
+        <div class="caption text-center">
+            <p><a class="btn btn-primary btn-block" data-create="true" role="button">Добавить</a></p>
+        </div>
+    </div>
+</div>
