@@ -1,11 +1,15 @@
 modules.createSection = function(){
 
     this.data = {
-        image: undefined,
-        title: undefined
+        title: null,
+        image: null
     };
 
     this.init = function () {
+
+        if (self.params.parentId) {
+            self.data.parentId = self.params.parentId;
+        }
 
         self.view.render('section/view/create', {}, function(renderedHtml){
             $(self.element).html(renderedHtml);
@@ -18,7 +22,18 @@ modules.createSection = function(){
             self.unload();
         });
 
-        $(self.element).find('input[type=file]').on('change', function(){
+        $(self.element).find('[data-form-title]').on('keyup', function(){
+
+            self.data.title = null;
+
+            if ($(this).val().length > 2 && $(this).val().length < 30) {
+                self.data.title = $(this).val();
+            }
+
+            self.profileSubmit();
+        });
+
+        $(self.element).find('[data-form-file]').on('change', function(){
 
             var reader = new FileReader();
 
@@ -27,19 +42,45 @@ modules.createSection = function(){
                     backgroundImage: "url(" + event.target.result + ")"
                 });
                 self.data.image = event.target.result;
+                self.profileSubmit();
             };
 
-            reader.readAsDataURL($(this).get(0).files[0]);
+            if ($(this).get(0).files.length) {
+                reader.readAsDataURL($(this).get(0).files[0]);
+            }
         });
 
         $(self.element).find('[data-submit]').on('click', function(){
 
-            $(self.element).find('.modal').modal('hide');
+            window.services.loader.show();
 
-            if (self.params.callback) {
-                self.params.callback();
-            }
+            window.services.api.saveSection(data, function (response) {
+
+                window.services.loader.hide();
+
+                if (response.success) {
+
+                    $(self.element).find('.modal').modal('hide');
+
+                    if (self.params.callback) {
+                        self.params.callback();
+                    }
+                }
+                else {
+                    $(self.element).find('[data-form-error]').html(
+                        window.services.locale.translate(response.error)
+                    );
+                }
+            });
         });
+    };
+
+    this.profileSubmit = function(){
+        if (self.data.title && self.data.image) {
+            $(self.element).find('[data-submit]').removeAttr('disabled');
+        } else {
+            $(self.element).find('[data-submit]').attr('disabled', 'disabled');
+        }
     };
 
     this.unload = function (callback) {

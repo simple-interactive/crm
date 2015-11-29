@@ -1,37 +1,68 @@
 modules.editSection = function(){
 
-    this.data = {
-        id: "menuId",
-        image: "http://bootflat.github.io/img/thumbnail-1.jpg",
-        title: "Бар"
-    };
+    this.data = {};
 
     this.init = function () {
 
-        self.view.render('section/view/edit', self.data, function(renderedHtml){
-            $(self.element).html(renderedHtml);
-        });
+        window.services.loader.show();
 
-        $(self.element).find('.modal').modal({
-            keyboard: false,
-            backdrop: 'static'
-        }).on('hidden.bs.modal', function(){
-            self.unload();
-        });
+        window.services.api.getSection(self.params.sectionId, function (response) {
 
-        $(self.element).find('input[type=file]').on('change', function(){
+            window.services.loader.hide();
 
-            var reader = new FileReader();
-
-            reader.onload = function (event) {
-                $(self.element).find('.image-uploader .holder').css({
-                    backgroundImage: "url(" + event.target.result + ")"
-                });
-                self.data.image = event.target.result;
+            self.data = {
+                id: response.section.id,
+                title: response.section.title,
+                parentId: response.section.parentId
             };
 
-            reader.readAsDataURL($(this).get(0).files[0]);
+            self.view.render('section/view/edit', {section: response.section}, function(renderedHtml){
+                $(self.element).html(renderedHtml);
+            });
+
+            $(self.element).find('.modal').modal({
+                keyboard: false,
+                backdrop: 'static'
+            }).on('hidden.bs.modal', function(){
+                self.unload();
+            });
+
+            $(self.element).find('[data-form-title]').on('keyup', function(){
+
+                self.data.title = null;
+
+                if ($(this).val().length > 2 && $(this).val().length < 30) {
+                    self.data.title = $(this).val();
+                }
+
+                self.profileSubmit();
+            });
+
+            $(self.element).find('[data-form-file]').on('change', function(){
+
+                var reader = new FileReader();
+
+                reader.onload = function (event) {
+                    $(self.element).find('.image-uploader .holder').css({
+                        backgroundImage: "url(" + event.target.result + ")"
+                    });
+                    self.data.image = event.target.result;
+                    self.profileSubmit();
+                };
+
+                if ($(this).get(0).files.length) {
+                    reader.readAsDataURL($(this).get(0).files[0]);
+                }
+            });
         });
+    };
+
+    this.profileSubmit = function(){
+        if (self.data.title) {
+            $(self.element).find('[data-submit]').removeAttr('disabled');
+        } else {
+            $(self.element).find('[data-submit]').attr('disabled', 'disabled');
+        }
     };
 
     this.unload = function (callback) {

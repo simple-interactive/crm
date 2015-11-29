@@ -23,6 +23,9 @@ window.view = function() {
                     .split("\r").join("\\'")
                 + "');} return p.join('');";
 
+
+            data.plugins = window.view.plugins;
+
             if (!callback) {
                 return (new Function("obj", templateCode))(data);
             }

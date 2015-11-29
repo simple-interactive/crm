@@ -1,38 +1,45 @@
-<div class="row">
-    <div class="col-xs-9">
-        <% if (breadcrumbs.length) { %>
-            <ol class="breadcrumb breadcrumb-arrow animated fadeInLeft">
+<% if (breadcrumbs.length) { %>
+    <ol class="breadcrumb breadcrumb-arrow animated fadeInLeft">
 
-                <% for (var i=0; i < breadcrumbs.length; i++) { %>
-                    <% if (i == breadcrumbs.length - 1) { %>
-                        <li class="active"><span><%= breadcrumbs[i].title %></span></li>
-                    <% } else { %>
-                        <li><a data-nav="back" data-id="<%= i %>"><%= breadcrumbs[i].title %></a></li>
-                    <% } %>
-                <% } %>
-
-            </ol>
+        <% for (var i=0; i < breadcrumbs.length; i++) { %>
+            <% if (i == breadcrumbs.length - 1) { %>
+                <li class="active"><span><%= breadcrumbs[i].title %></span></li>
+            <% } else { %>
+                <li><a data-nav="back" data-id="<%= i %>"><%= breadcrumbs[i].title %></a></li>
+            <% } %>
         <% } %>
-    </div>
-    <div class="col-xs-3">
-        <form class="navbar-form navbar-right animated fadeInLeft" role="search">
-            <div class="form-search search-only">
-                <i class="search-icon glyphicon glyphicon-search"></i>
-                <input type="text" class="form-control search-query" />
-            </div>
-        </form>
-    </div>
-</div>
+
+    </ol>
+<% } %>
+
+<% for (var i=0; i < sections.lenght; i++) { %>
 
 <div class="col-sm-6 col-md-3 animated fadeInLeft">
     <div class="thumbnail section-list">
-        <div class="img-thumbnail" style="background-image: url();" data-nav="section" data-id="xd3j47cnj9238749783" data-title="Бар"></div>
+
+        <div class="img-thumbnail"
+
+             style="background-image: url(<%= sections[i].image.url %>);"
+
+            <% if (sections[i].itemsCount) { %>
+                data-nav="position"
+            <% } else { %>
+                data-nav="section"
+            <% } %>
+
+            data-id="<%= sections[i].id %>"
+            data-title="<%= sections[i].title %>">
+
+        </div>
+
         <div class="caption text-center">
-            <h3>Бар</h3>
-            <p><a class="btn btn-warning btn-block" data-edit="true" data-id="menuId" role="button">Редактировать</a></p>
+            <h3><%= sections[i].title %></h3>
+            <p><a class="btn btn-warning btn-block" data-edit="true" data-id="<%= sections[i].id %>" role="button">Редактировать</a></p>
         </div>
     </div>
 </div>
+
+<% } %>
 
 <div class="col-sm-6 col-md-3 animated fadeInLeft">
     <div class="thumbnail add">

@@ -20,11 +20,51 @@ window.services.api = function(){
         $.post([self.config.endpoint, 'auth'].join('/'), data, callback);
     };
 
-    this.getMenus = function(callback){
-        self.call('menu/get', {}, callback);
+    /****************************** SECTION *******************************/
+    /**
+     * Returns section list by provided parent section ID
+     * METHOD: GET
+     * URL:    section?parentId=parentId
+     *
+     * @param String|null  parentId
+     * @param Function     callback
+     */
+    this.getSections = function(parentId, callback){
+        self.call('get', 'section', {parentId: parentId}, callback);
     };
 
-    this.call = function(method, data, callback){
+    /**
+     * Returns section object by provided ID
+     * Method: GET
+     * URL:    section/get?id=sectionId
+     *
+     * @param String   sectionId
+     * @param Function callback
+     */
+    this.getSection = function(sectionId, callback){
+        self.call('get', 'section/get', {sectionId: sectionId}, callback);
+    };
+
+    /**
+     * Saves section data.
+     * data = {
+     *     id: string|null, // can be a null - in this case backend will create a new section
+     *     title: string,
+     *     image: blob      // only for editing a section can be a null
+     * }
+     * METHOD: POST
+     * URL: section/save
+     *
+     * @param Object   data
+     * @param Function callback
+     */
+    this.saveSection = function(data, callback){
+        self.call('post', 'section/save', data, callback);
+    };
+
+    /**************************** END SECTION *****************************/
+
+    this.call = function(method, endpoint, data, callback){
 
         if (!self.config.endpoint) {
             console.log("API Endpoint was not specified");
@@ -32,9 +72,9 @@ window.services.api = function(){
         }
 
         $.ajax({
-            url: [self.config.endpoint, method].join('/'),
+            url: [self.config.endpoint, endpoint].join('/'),
             data: data,
-            type: "GET",
+            type: method.toUpperCase(),
             dataType: 'json',
             beforeSend: function(request){
                 request.setRequestHeader('x-auth', self.token);
@@ -48,7 +88,7 @@ window.services.api = function(){
 
                 var parsedResponse = {
                     success: false,
-                    message: 'Сервер времено не отвечает'
+                    message: 'the-server-is-currently-not-responding'
                 };
 
                 try {

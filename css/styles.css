@@ -127,3 +127,11 @@ form[role=search] {
 .section-list .img-thumbnail {
     cursor: pointer;
 }
+
+.breadcrumb, [role="menu"] {
+    cursor: pointer;
+}
+
+.modal-footer [data-form-error] {
+    line-height: 32px;
+}

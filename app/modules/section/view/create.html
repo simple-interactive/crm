@@ -16,22 +16,30 @@
                                 <div class="holder"></div>
                                 <div class="controls">
                                     <a class="btn btn-info">Нажмите для выбора изображения</a>
-                                    <input type="file" data-file="true" />
+                                    <input type="file" data-form-file="true" />
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="col-xs-12">
-                            <input type="text" class="form-control" placeholder="Название" />
+                            <input type="text" class="form-control" placeholder="Название" data-form-title="true" />
                         </div>
 
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                    <button type="button" class="btn btn-success" data-submit="true">Добавить</button>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <div class="text-left text-danger" data-form-error="true"></div>
+                        </div>
+                        <div class="col-xs-5 text-right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                            <button type="button" class="btn btn-success" data-submit="true" disabled="disabled">Добавить</button>
+                        </div>
+                    </div>
+
                 </div>
             </form>
         </div>

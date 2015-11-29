@@ -2,7 +2,11 @@ modules.layout = function(){
 
     this.init = function () {
 
-        self.view.render('layout/view/index', {}, function(renderedHtml){
+        var templateVars = {
+            user: window.services.user.get()
+        };
+
+        self.view.render('layout/view/index', templateVars, function(renderedHtml){
             $(self.element).html(renderedHtml);
         });
 

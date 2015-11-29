@@ -16,22 +16,29 @@
                                 <div class="holder" style="background-image: url(<%= image %>)"></div>
                                 <div class="controls">
                                     <a class="btn btn-info">Нажмите для выбора изображения</a>
-                                    <input type="file" data-file="true" />
+                                    <input type="file" data-form-file="true" />
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="col-xs-12">
-                            <input type="text" class="form-control" placeholder="Название" value="<%= title %>"/>
+                            <input type="text" class="form-control" data-form-title="true" placeholder="Название" value="<%= title %>"/>
                         </div>
 
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                    <button type="button" class="btn btn-success" data-submit="true">Сохранить</button>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <div class="text-left text-danger" data-form-error="true"></div>
+                        </div>
+                        <div class="col-xs-5 text-right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                            <button type="button" class="btn btn-success" data-submit="true">Сохранить</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
