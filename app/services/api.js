@@ -30,7 +30,10 @@ window.services.api = function(){
      * @param Function     callback
      */
     this.getSections = function(parentId, callback){
-        self.call('get', 'section', {parentId: parentId}, callback);
+
+        var params = (parentId != null)?{parentId: parentId}:{};
+
+        self.call('get', 'section/list', params, callback);
     };
 
     /**
@@ -42,7 +45,7 @@ window.services.api = function(){
      * @param Function callback
      */
     this.getSection = function(sectionId, callback){
-        self.call('get', 'section/get', {sectionId: sectionId}, callback);
+        self.call('get', 'section', {id: sectionId}, callback);
     };
 
     /**
@@ -58,13 +61,13 @@ window.services.api = function(){
      * @param Object   data
      * @param Function callback
      */
-    this.saveSection = function(data, callback){
-        self.call('post', 'section/save', data, callback);
+    this.saveSection = function(data, callback, failCallback){
+        self.call('post', 'section/save', data, callback, failCallback);
     };
 
     /**************************** END SECTION *****************************/
 
-    this.call = function(method, endpoint, data, callback){
+    this.call = function(method, endpoint, data, callback, failCallback){
 
         if (!self.config.endpoint) {
             console.log("API Endpoint was not specified");
@@ -95,7 +98,13 @@ window.services.api = function(){
                     parsedResponse = JSON.parse(response.responseText);
                 } catch (err) {}
 
-                callback(parsedResponse);
+                if (response.status == 200) {
+                    callback(parsedResponse);
+                } else {
+                    if (failCallback) {
+                        failCallback(parsedResponse);
+                    }
+                }
             }
         });
     };

@@ -24,7 +24,7 @@ modules.auth = function(){
                         services.user.save(res.user);
 
                         module.unloadAll();
-                        module.load('index');
+                        module.load('layout');
                     }
                     else {
                         $(self.element).find('[data-error] .alert').html('E-mail or password is wrong');

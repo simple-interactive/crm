@@ -13,7 +13,7 @@ modules.section = function(){
         window.services.api.getSections(currentSectionId, function(sections){
 
             var templateVars = {
-                sections: sections,
+                sections: sections.sections,
                 breadcrumbs: self.params.breadcrumbs
             };
 
@@ -50,6 +50,7 @@ modules.section = function(){
 
             $(self.element).find('[data-edit]').on('click', function(){
                 module.load('editSection', {
+                    sectionId: $(this).data('id'),
                     callback: self.init
                 }, 'body');
             });

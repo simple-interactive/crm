@@ -25,6 +25,10 @@ modules.layout = function(){
         });
 
         $(self.element).find('[data-menu] [data-href]')[0].click();
+        
+        $(self.element).find('[data-menu-exit]').on('click', function(){
+            window.services.user.forget();
+        });
     };
 
     var self = this;

@@ -54,23 +54,22 @@ modules.createSection = function(){
 
             window.services.loader.show();
 
-            window.services.api.saveSection(data, function (response) {
+            window.services.api.saveSection(self.data, function (response) {
 
                 window.services.loader.hide();
 
-                if (response.success) {
+                $(self.element).find('.modal').modal('hide');
 
-                    $(self.element).find('.modal').modal('hide');
+                if (self.params.callback) {
+                    self.params.callback();
+                }
+            }, function (response) {
 
-                    if (self.params.callback) {
-                        self.params.callback();
-                    }
-                }
-                else {
-                    $(self.element).find('[data-form-error]').html(
-                        window.services.locale.translate(response.error)
-                    );
-                }
+                window.services.loader.hide();
+
+                $(self.element).find('[data-form-error]').html(
+                    window.services.locale.translate(response.message)
+                );
             });
         });
     };

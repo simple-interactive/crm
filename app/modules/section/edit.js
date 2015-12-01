@@ -54,6 +54,32 @@ modules.editSection = function(){
                     reader.readAsDataURL($(this).get(0).files[0]);
                 }
             });
+
+            $(self.element).find('[data-submit]').on('click', function(){
+
+                window.services.loader.show();
+
+                window.services.api.saveSection(self.data,
+                    function (response) {
+
+                        window.services.loader.hide();
+
+                        $(self.element).find('.modal').modal('hide');
+
+                        if (self.params.callback) {
+                            self.params.callback();
+                        }
+                    },
+                    function (response) {
+
+                        window.services.loader.hide();
+
+                        $(self.element).find('[data-form-error]').html(
+                            window.services.locale.translate(response.message)
+                        );
+                    }
+                );
+            });
         });
     };
 
