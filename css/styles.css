@@ -64,7 +64,8 @@ body {
     width: 100%;
     height: 149px;
     background-position: center;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .thumbnail.add div.img-thumbnail {
@@ -85,8 +86,8 @@ body {
     height: 230px;
     background-image: url(/images/test.png);
     background-position: center;
+    background-size: contain;
     background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .image-uploader .controls {
@@ -134,4 +135,21 @@ form[role=search] {
 
 .modal-footer [data-form-error] {
     line-height: 32px;
+}
+
+.media, .media-body {
+    overflow: visible;
+}
+
+.products > .item {
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.products > .item:first-child {
+    margin-top: 0px;
+}
+
+.btn-link {
+    cursor: pointer;
 }

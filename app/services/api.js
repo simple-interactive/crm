@@ -65,6 +65,14 @@ window.services.api = function(){
         self.call('post', 'section/save', data, callback, failCallback);
     };
 
+    /**
+     * @param string sectionId
+     * @param Function callback
+     */
+    this.deleteSection = function(sectionId, callback){
+        self.call('post', 'section/delete', {id: sectionId}, callback);
+    };
+
     /**************************** END SECTION *****************************/
 
     this.call = function(method, endpoint, data, callback, failCallback){

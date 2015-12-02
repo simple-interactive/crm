@@ -3,7 +3,7 @@ modules.section = function(){
     this.init = function () {
 
         if (!self.params.breadcrumbs) {
-            self.params.breadcrumbs = [{title: "Управление секциями", id: null}];
+            self.params.breadcrumbs = [{title: "Управление секциями", id: null, productsCount: 0}];
         }
 
         var currentSectionId = self.params.breadcrumbs[self.params.breadcrumbs.length-1].id;
@@ -14,7 +14,8 @@ modules.section = function(){
 
             var templateVars = {
                 sections: sections.sections,
-                breadcrumbs: self.params.breadcrumbs
+                breadcrumbs: self.params.breadcrumbs,
+                currentSection: self.params.breadcrumbs[self.params.breadcrumbs.length-1]
             };
 
             self.view.render('section/view/index', templateVars, function(renderedHtml) {
@@ -28,14 +29,15 @@ modules.section = function(){
                 if ($(this).data('nav') == 'section') {
                     self.params.breadcrumbs.push({
                         title: $(this).data('title'),
-                        id: $(this).data('id')
+                        id: $(this).data('id'),
+                        productsCount: $(this).data('products-count')
                     });
                 }
                 else if ($(this).data('nav') == 'back') {
                     self.params.breadcrumbs = self.params.breadcrumbs.slice(0, $(this).data('id')+1);
                 }
                 else if ($(this).data('nav') == 'position') {
-
+                    alert('try to load position module');
                 }
 
                 module.unloadAll('layout');
@@ -53,6 +55,24 @@ modules.section = function(){
                     sectionId: $(this).data('id'),
                     callback: self.init
                 }, 'body');
+            });
+
+            $(self.element).find('[data-delete]').on('click', function(){
+
+                var sectionId = $(this).data('id');
+
+                window.view.plugins.confirm(
+                    window.services.locale.translate("confirm-action"),
+                    window.services.locale.translate("section-deleting"),
+                    "danger",
+                    function () {
+                        window.services.loader.show();
+                        window.services.api.deleteSection(sectionId, function () {
+                            self.init();
+                        });
+                    }
+                );
+
             });
         });
     };

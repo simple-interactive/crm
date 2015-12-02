@@ -21,26 +21,43 @@
 
              style="background-image: url(<%= sections[i].image.url %>);"
 
-            <% if (sections[i].itemsCount) { %>
+            <% if (sections[i].productsCount) { %>
                 data-nav="position"
             <% } else { %>
                 data-nav="section"
             <% } %>
 
             data-id="<%= sections[i].id %>"
-            data-title="<%= sections[i].title %>">
-
-        </div>
+            data-title="<%= sections[i].title %>"
+            data-products-count="<%= sections[i].productsCount %>"></div>
 
         <div class="caption text-center">
             <h3><%= sections[i].title %></h3>
-            <p><a class="btn btn-warning btn-block" data-edit="true" data-id="<%= sections[i].id %>" role="button">Редактировать</a></p>
+            <p>
+            <div class="btn-group btn-block">
+                <button type="button" class="btn btn-block btn-primary dropdown-toggle" data-toggle="dropdown">Настройки <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a data-edit="true" data-id="<%= sections[i].id %>"><span class="glyphicon glyphicon-edit"></span> Редактировать</a></li>
+
+                    <% if (sections[i].productsCount) { %>
+                        <li><a data-products="true" data-id="<%= sections[i].id %>"><span class="glyphicon glyphicon-shopping-cart"></span> Посмотреть товары</a></li>
+                    <% } else { %>
+                        <li class="disabled"><a><span class="glyphicon glyphicon-shopping-cart"></span> Посмотреть товары</a></li>
+                    <% } %>
+
+
+                    <li class="divider"></li>
+                    <li><a data-delete="true" data-id="<%= sections[i].id %>"><span class="glyphicon glyphicon-trash"></span> Удалить</a></li>
+                </ul>
+            </div>
+            </p>
         </div>
     </div>
 </div>
 
 <% } %>
 
+<% if (!currentSection.productsCount) { %>
 <div class="col-sm-6 col-md-3 animated fadeInLeft">
     <div class="thumbnail add">
         <div class="img-thumbnail"></div>
@@ -49,3 +66,4 @@
         </div>
     </div>
 </div>
+<% } %>
