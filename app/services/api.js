@@ -75,6 +75,54 @@ window.services.api = function(){
 
     /**************************** END SECTION *****************************/
 
+    /****************************** PRODUCT *******************************/
+    /**
+     * Returns list of all products
+     *
+     * @param Int limit
+     * @param Int offset
+     * @param Function callback
+     */
+    this.getAllProducts = function(limit, offset, callback){
+        self.call('get', 'product/list', {limit: limit, offset: offset}, callback);
+    };
+
+    /**
+     * Returns list of founded products
+     *
+     * @param String search
+     * @param Int limit
+     * @param Int offset
+     * @param Function callback
+     */
+    this.getSearchProducts = function(search, limit, offset, callback){
+        self.call('get', 'product/search', {search: search, limit: limit, offset: offset}, callback);
+    };
+
+    /**
+     * Returns list of products by section
+     *
+     * @param String sectionId
+     * @param Int limit
+     * @param Int offset
+     * @param Function callback
+     */
+    this.getSectionProducts = function(sectionId, limit, offset, callback){
+        self.call('get', 'product/section', {sectionId: sectionId, limit: limit, offset: offset}, callback);
+    };
+
+    /**************************** END PRODUCT *****************************/
+
+
+    this.addIngredient = function(ingredient, callback){
+        self.call('post', 'ingredient/save', {title: ingredient}, callback);
+    };
+
+    this.getIngredients = function (search, callback) {
+        self.call('get', 'ingredient', {search: search}, callback);
+    };
+
+
     this.call = function(method, endpoint, data, callback, failCallback){
 
         if (!self.config.endpoint) {

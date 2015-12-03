@@ -153,3 +153,74 @@ form[role=search] {
 .btn-link {
     cursor: pointer;
 }
+
+.products .media-object {
+    width: 60px;
+    height: 60px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+[data-module="productCreate"] .modal-dialog {
+    width: 1000px;
+}
+
+[data-module=productCreate] .form-control {
+    margin-bottom: 10px;
+}
+
+[data-module=productCreate] .input-group .form-control {
+    margin-bottom: 0px;
+}
+
+[data-module=productCreate] .input-group {
+    margin-bottom: 10px;
+}
+
+[data-module=productCreate] .selecter {
+    max-width: 100%;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+[data-module=productCreate] .selecter .selecter-selected:after {
+    top: 0px;
+}
+
+[data-module=productCreate] .selecter .selecter-options {
+    max-height: 200px;
+}
+
+[data-module=productCreate] .checkbox {
+    margin-top: 6px;
+}
+
+[data-module=productCreate] .images .image {
+    margin-bottom: 10px;
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100px;
+    margin-right: 10px;
+    width: 102px;
+}
+
+[data-module=productCreate] .images .image:last-child {
+    margin-right: 0px;
+}
+
+[data-module=productCreate] .images .image .btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+[data-module=productCreate] .btn-block {
+    margin-bottom: 10px;
+}
+
+.dropdown-menu li {
+    cursor: pointer;
+}

@@ -24,6 +24,10 @@ window.view = function() {
                 + "');} return p.join('');";
 
 
+            if (!data) {
+                data = {};
+            }
+
             data.plugins = window.view.plugins;
 
             if (!callback) {
