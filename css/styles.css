@@ -108,10 +108,6 @@ body {
     opacity: 0;
 }
 
-[data-module=createMenu] .modal-dialog, [data-module=editMenu] .modal-dialog {
-    width: 400px;
-}
-
 .modal-footer {
     margin-top: 15px;
     border-top: 1px solid lightgray;
@@ -162,41 +158,41 @@ form[role=search] {
     background-size: cover;
 }
 
-[data-module="productCreate"] .modal-dialog {
+[data-module=productManage] .modal-dialog {
     width: 1000px;
 }
 
-[data-module=productCreate] .form-control {
+[data-module=productManage] .form-control {
     margin-bottom: 10px;
 }
 
-[data-module=productCreate] .input-group .form-control {
+[data-module=productManage] .input-group .form-control {
     margin-bottom: 0px;
 }
 
-[data-module=productCreate] .input-group {
+[data-module=productManage] .input-group {
     margin-bottom: 10px;
 }
 
-[data-module=productCreate] .selecter {
+[data-module=productManage] .selecter {
     max-width: 100%;
     margin: 0px;
     margin-bottom: 10px;
 }
 
-[data-module=productCreate] .selecter .selecter-selected:after {
+[data-module=productManage] .selecter .selecter-selected:after {
     top: 0px;
 }
 
-[data-module=productCreate] .selecter .selecter-options {
+[data-module=productManage] .selecter .selecter-options {
     max-height: 200px;
 }
 
-[data-module=productCreate] .checkbox {
+[data-module=productManage] .checkbox {
     margin-top: 6px;
 }
 
-[data-module=productCreate] .images .image {
+[data-module=productManage] .images .image {
     margin-bottom: 10px;
     position: relative;
     background-size: cover;
@@ -204,23 +200,41 @@ form[role=search] {
     background-position: center;
     height: 100px;
     margin-right: 10px;
-    width: 102px;
+    width: 100px;
 }
 
-[data-module=productCreate] .images .image:last-child {
+[data-module=productManage] .images .image:last-child {
     margin-right: 0px;
 }
 
-[data-module=productCreate] .images .image .btn {
+[data-module=productManage] .images .image .btn {
     position: absolute;
     top: 5px;
     right: 5px;
 }
 
-[data-module=productCreate] .btn-block {
+[data-module=productManage] .btn-block {
     margin-bottom: 10px;
 }
 
 .dropdown-menu li {
+    cursor: pointer;
+}
+
+[data-module=productManage] .image-button {
+    position: relative;
+    height: 34px;
+}
+
+[data-module=productManage] .image-button a,[data-module=productManage] .image-button input {
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    width: 440px;
+    height: 34px;
+}
+
+[data-module=productManage] .image-button input {
+    opacity: 0;
     cursor: pointer;
 }

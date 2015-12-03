@@ -27,7 +27,7 @@ modules.product = function(){
         });
 
         $(self.element).find('[data-product-add]').on('click', function(){
-            module.load('productCreate', {}, 'body');
+            module.load('productManage', {}, 'body');
         });
 
         self.drawProducts();

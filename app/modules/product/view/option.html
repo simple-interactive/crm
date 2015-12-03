@@ -1,12 +1,14 @@
-<div class="col-xs-4">
-    <input type="text" class="form-control">
-</div>
-<div class="col-xs-3">
-    <input type="number" class="form-control" placeholder="Цена">
-</div>
-<div class="col-xs-3">
-    <input type="number" class="form-control" placeholder="Вес">
-</div>
-<div class="col-xs-2 text-right">
-    <a class="btn btn-block btn-info"><span class="glyphicon glyphicon-trash"></span></a>
+<div data-option="true">
+    <div class="col-xs-4">
+        <input type="text" data-input="title" class="form-control" value="<%= option.title %>">
+    </div>
+    <div class="col-xs-3">
+        <input type="number" data-input="price" class="form-control" placeholder="Цена" value="<%= option.price %>">
+    </div>
+    <div class="col-xs-3">
+        <input type="number" data-input="weight" class="form-control" placeholder="Вес" value="<%= option.weight %>">
+    </div>
+    <div class="col-xs-2 text-right">
+        <a class="btn btn-block btn-info" data-remove="true"><span class="glyphicon glyphicon-trash"></span></a>
+    </div>
 </div>

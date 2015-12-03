@@ -1,15 +1,35 @@
 window.services.api = function(){
 
+    /**
+     * @type {{endpoint: (config.endpoint|string)}}
+     */
     this.config = {
         endpoint : config.endpoint
     };
 
+    /**
+     * @type {string}
+     */
     this.token = null;
 
+    /**
+     * Returns auth token
+     *
+     * @param {string} token
+     */
     this.setToken = function(token){
         self.token = token;
     };
 
+    /**
+     * Auth user and receive token
+     *
+     * @param {object} data
+     * @param {string} data.login
+     * @param {string} data.password
+     *
+     * @param {function} callback
+     */
     this.login = function(data, callback){
 
         if (!self.config.endpoint) {
@@ -26,13 +46,11 @@ window.services.api = function(){
      * METHOD: GET
      * URL:    section?parentId=parentId
      *
-     * @param String|null  parentId
-     * @param Function     callback
+     * @param {string|null} parentId
+     * @param {function} callback
      */
     this.getSections = function(parentId, callback){
-
         var params = (parentId != null)?{parentId: parentId}:{};
-
         self.call('get', 'section/list', params, callback);
     };
 
@@ -41,8 +59,8 @@ window.services.api = function(){
      * Method: GET
      * URL:    section/get?id=sectionId
      *
-     * @param String   sectionId
-     * @param Function callback
+     * @param {string}   sectionId
+     * @param {function} callback
      */
     this.getSection = function(sectionId, callback){
         self.call('get', 'section', {id: sectionId}, callback);
@@ -50,27 +68,27 @@ window.services.api = function(){
 
     /**
      * Saves section data.
-     * data = {
-     *     id: string|null, // can be a null - in this case backend will create a new section
-     *     title: string,
-     *     image: blob      // only for editing a section can be a null
-     * }
      * METHOD: POST
      * URL: section/save
      *
-     * @param Object   data
-     * @param Function callback
+     * @param {object} data
+     * @param {string} data.id - can be a null - in this case backend will create a new section
+     * @param {string} data.title
+     * @param {Blob}   data.image - only for editing a section can be a null
+     *
+     * @param {function} callback
+     * @param {function} failCallback
      */
     this.saveSection = function(data, callback, failCallback){
         self.call('post', 'section/save', data, callback, failCallback);
     };
 
     /**
-     * @param string sectionId
-     * @param Function callback
+     * @param {string} id
+     * @param {function} callback
      */
-    this.deleteSection = function(sectionId, callback){
-        self.call('post', 'section/delete', {id: sectionId}, callback);
+    this.deleteSection = function(id, callback){
+        self.call('post', 'section/delete', {id: id}, callback);
     };
 
     /**************************** END SECTION *****************************/
@@ -79,9 +97,9 @@ window.services.api = function(){
     /**
      * Returns list of all products
      *
-     * @param Int limit
-     * @param Int offset
-     * @param Function callback
+     * @param {number} limit
+     * @param {number} offset
+     * @param {function} callback
      */
     this.getAllProducts = function(limit, offset, callback){
         self.call('get', 'product/list', {limit: limit, offset: offset}, callback);
@@ -90,10 +108,10 @@ window.services.api = function(){
     /**
      * Returns list of founded products
      *
-     * @param String search
-     * @param Int limit
-     * @param Int offset
-     * @param Function callback
+     * @param {string} search
+     * @param {number} limit
+     * @param {number} offset
+     * @param {function} callback
      */
     this.getSearchProducts = function(search, limit, offset, callback){
         self.call('get', 'product/search', {search: search, limit: limit, offset: offset}, callback);
@@ -102,10 +120,10 @@ window.services.api = function(){
     /**
      * Returns list of products by section
      *
-     * @param String sectionId
-     * @param Int limit
-     * @param Int offset
-     * @param Function callback
+     * @param {string} sectionId
+     * @param {number} limit
+     * @param {number} offset
+     * @param {function} callback
      */
     this.getSectionProducts = function(sectionId, limit, offset, callback){
         self.call('get', 'product/section', {sectionId: sectionId, limit: limit, offset: offset}, callback);
@@ -114,15 +132,39 @@ window.services.api = function(){
     /**************************** END PRODUCT *****************************/
 
 
-    this.addIngredient = function(ingredient, callback){
-        self.call('post', 'ingredient/save', {title: ingredient}, callback);
+    /**************************** INGREDIENTS *****************************/
+
+    /**
+     * Saves ingredient
+     *
+     * @param {string} title
+     * @param {function} callback
+     */
+    this.addIngredient = function(title, callback){
+        self.call('post', 'ingredient/save', {title: title}, callback);
     };
 
+    /**
+     * Returns list of founded ingredients
+     *
+     * @param {string} search
+     * @param {function} callback
+     */
     this.getIngredients = function (search, callback) {
         self.call('get', 'ingredient', {search: search}, callback);
     };
 
+    /************************** END INGREDIENTS ***************************/
 
+    /**
+     * Send request to an api
+     *
+     * @param {string} method
+     * @param {string} endpoint
+     * @param {object} data
+     * @param {function} callback
+     * @param {function|null} [failCallback=null]
+     */
     this.call = function(method, endpoint, data, callback, failCallback){
 
         if (!self.config.endpoint) {
