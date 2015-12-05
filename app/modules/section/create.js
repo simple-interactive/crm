@@ -2,7 +2,8 @@ modules.createSection = function(){
 
     this.data = {
         title: null,
-        image: null
+        image: null,
+        parentId: null
     };
 
     this.init = function () {

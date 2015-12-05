@@ -13,9 +13,26 @@ modules.productManage = function(){
         options:[]
     };
 
+    this.tree = [];
+
     this.init = function () {
 
-        self.view.render('product/view/create', {product: self.product}, function(renderedHtml){
+        window.services.api.getSectionTree(function(tree){
+
+            self.tree = tree.sections;
+
+            self.manageForm();
+            self.manageStaticFields();
+            self.manageImages();
+            self.manageIngredients();
+            self.manageOptions();
+            self.profileSubmit();
+        });
+    };
+
+    this.manageForm = function(){
+
+        self.view.render('product/view/create', {product: self.product, tree: self.tree}, function(renderedHtml){
             $(self.element).html(renderedHtml);
         });
 
@@ -25,12 +42,6 @@ modules.productManage = function(){
         }).on('hidden.bs.modal', function(){
             self.unload();
         });
-
-        self.manageStaticFields();
-        self.manageImages();
-        self.manageIngredients();
-        self.manageOptions();
-        self.profileSubmit();
     };
 
     this.manageStaticFields = function () {

@@ -238,3 +238,8 @@ form[role=search] {
     opacity: 0;
     cursor: pointer;
 }
+
+[data-module=section] > .section {
+    position: relative;
+    z-index: 20;
+}

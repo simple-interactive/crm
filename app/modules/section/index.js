@@ -46,6 +46,7 @@ modules.section = function(){
 
             $(self.element).find('[data-create]').on('click', function(){
                 module.load('createSection', {
+                    parentId: currentSectionId,
                     callback: self.init
                 }, 'body');
             });
@@ -73,6 +74,18 @@ modules.section = function(){
                     }
                 );
 
+            });
+
+            $(self.element).on('click', '.btn.dropdown-toggle', function(){
+
+                $(self.element).find('.section').css('z-index', 999);
+
+                var section = $(this).closest('.section');
+                section.css('z-index', 1000);
+
+                $(document).click(function(){
+                    $(self.element).find('.section').css('z-index', 999);
+                });
             });
         });
     };

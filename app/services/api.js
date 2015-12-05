@@ -91,6 +91,15 @@ window.services.api = function(){
         self.call('post', 'section/delete', {id: id}, callback);
     };
 
+    /**
+     * Returns section tree to display it in the product manage form
+     *
+     * @param {function} callback
+     */
+    this.getSectionTree = function(callback){
+        self.call('get', 'section/tree', {}, callback);
+    };
+
     /**************************** END SECTION *****************************/
 
     /****************************** PRODUCT *******************************/
@@ -198,7 +207,11 @@ window.services.api = function(){
 
                 if (response.status == 200) {
                     callback(parsedResponse);
-                } else {
+                }
+                else if (response.status == 400) {
+                    window.services.loader.hide();
+                }
+                else {
                     if (failCallback) {
                         failCallback(parsedResponse);
                     }
