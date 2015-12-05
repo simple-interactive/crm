@@ -1,4 +1,12 @@
 $(function () {
+    /**
+     *
+     * @param {String} caption
+     * @param {String} content
+     * @param {String} style [style=info]
+     * @param {Function} yesCallback
+     * @param {Function} noCallback
+     */
     window.view.plugins.confirm = function (caption, content, style, yesCallback, noCallback) {
 
         if (!style) {

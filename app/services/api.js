@@ -138,6 +138,47 @@ window.services.api = function(){
         self.call('get', 'product/section', {sectionId: sectionId, limit: limit, offset: offset}, callback);
     };
 
+    /**
+     * Saves new or editable product
+     *
+     * @param {Object} product
+     * @param {String} product.id [product.id=null]
+     * @param {String} product.description
+     * @param {Number} product.price
+     * @param {Number} product.weight
+     * @param {Number} product.exists
+     * @param {String} product.sectionId
+     * @param {Array} product.images
+     * @param {Array} product.ingredients
+     * @param {Array} product.options
+     *
+     * @param {Function} callback
+     * @param {Function} failCallback
+     */
+    this.saveProduct = function(product, callback, failCallback){
+        self.call('post', 'product', product, callback, failCallback);
+    };
+
+    /**
+     * Gets product data by id
+     *
+     * @param {String} id
+     * @param {Function} callback
+     */
+    this.getProduct = function(id, callback){
+        self.call('get', 'product', {id: id}, callback);
+    };
+
+    /**
+     * Deletes product by id
+     *
+     * @param {String} id
+     * @param {Function} callback
+     */
+    this.deleteProduct = function(id, callback){
+        self.call('post', 'product/delete', {id: id}, callback);
+    };
+
     /**************************** END PRODUCT *****************************/
 
 
@@ -205,16 +246,16 @@ window.services.api = function(){
                     parsedResponse = JSON.parse(response.responseText);
                 } catch (err) {}
 
-                if (response.status == 200) {
+                if (response.status == 200 || response.status == 400) {
+
+                    if (response.status == 400) {
+                        window.services.loader.hide();
+                    }
+
                     callback(parsedResponse);
                 }
-                else if (response.status == 400) {
-                    window.services.loader.hide();
-                }
-                else {
-                    if (failCallback) {
-                        failCallback(parsedResponse);
-                    }
+                else if (failCallback) {
+                    failCallback(parsedResponse);
                 }
             }
         });

@@ -22,10 +22,17 @@
 
                             <div class="col-xs-12">
                                 <select data-selecter="true" class="form-control col-xs-12" data-static="sectionId">
+                                    <option value="">Выберете категорию</option>
                                     <% for (var i=0; i<tree.length ; i++) { %>
                                         <optgroup label="<%= tree[i].title %>">
                                             <% for (var j=0; j<tree[i]['sub-sections'].length; j++) {%>
-                                                <option value="<%= tree[i]['sub-sections'][j].id %>"><%= tree[i]['sub-sections'][j].title %></option>
+
+                                                <% if (product.section.id == tree[i]['sub-sections'][j].id) { %>
+                                                    <option value="<%= tree[i]['sub-sections'][j].id %>" selected="selected"><%= tree[i]['sub-sections'][j].title %></option>
+                                                <% } else { %>
+                                                    <option value="<%= tree[i]['sub-sections'][j].id %>"><%= tree[i]['sub-sections'][j].title %></option>
+                                                <% } %>
+
                                             <% } %>
                                         </optgroup>
                                     <% } %>

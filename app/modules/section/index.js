@@ -38,6 +38,7 @@ modules.section = function(){
                 }
                 else if ($(this).data('nav') == 'position') {
                     alert('try to load position module');
+                    return false;
                 }
 
                 module.unloadAll('layout');
@@ -73,6 +74,16 @@ modules.section = function(){
                         });
                     }
                 );
+
+            });
+
+            $(self.element).find('[data-products]').on('click', function(){
+
+                module.unload('section');
+                module.load('product', {
+                    source: 'section',
+                    sectionId: $(this).data('id')
+                });
 
             });
 

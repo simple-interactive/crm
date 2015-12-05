@@ -243,3 +243,7 @@ form[role=search] {
     position: relative;
     z-index: 20;
 }
+
+.pagination a {
+    cursor: pointer;
+}

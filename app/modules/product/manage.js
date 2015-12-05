@@ -1,13 +1,60 @@
+if (!Object.prototype.watch) {
+    Object.defineProperty(Object.prototype, "watch", {
+        enumerable: false
+        , configurable: true
+        , writable: false
+        , value: function (prop, handler) {
+            var
+                oldval = this[prop]
+                , newval = oldval
+                , getter = function () {
+                    return newval;
+                }
+                , setter = function (val) {
+                    oldval = newval;
+                    return newval = handler.call(this, prop, oldval, val);
+                }
+                ;
+
+            if (delete this[prop]) { // can't watch constants
+                Object.defineProperty(this, prop, {
+                    get: getter
+                    , set: setter
+                    , enumerable: true
+                    , configurable: true
+                });
+            }
+        }
+    });
+}
+
+// object.unwatch
+if (!Object.prototype.unwatch) {
+    Object.defineProperty(Object.prototype, "unwatch", {
+        enumerable: false
+        , configurable: true
+        , writable: false
+        , value: function (prop) {
+            var val = this[prop];
+            delete this[prop]; // remove accessors
+            this[prop] = val;
+        }
+    });
+}
+
 modules.productManage = function(){
 
     this.product = {
         id: "",
         title: "",
         description: "",
-        price: 0,
-        weight: 0,
-        exists: true,
-        sectionId: "",
+        price: "",
+        weight: "",
+        exists: 1,
+        section: {
+            id: "",
+            title: ""
+        },
         images: [],
         ingredients: [],
         options:[]
@@ -17,16 +64,32 @@ modules.productManage = function(){
 
     this.init = function () {
 
+        if (self.params.productId) {
+
+            window.services.api.getProduct(self.params.productId, function(product){
+                self.product = product.product;
+                self.initForm();
+            });
+        }
+
+        else {
+            this.initForm();
+        }
+    };
+
+    this.initForm = function(){
+
         window.services.api.getSectionTree(function(tree){
 
             self.tree = tree.sections;
-
             self.manageForm();
             self.manageStaticFields();
             self.manageImages();
             self.manageIngredients();
             self.manageOptions();
             self.profileSubmit();
+
+            self.submitProduct();
         });
     };
 
@@ -40,7 +103,7 @@ modules.productManage = function(){
             keyboard: false,
             backdrop: 'static'
         }).on('hidden.bs.modal', function(){
-            self.unload();
+            self.unload(self.params.callback);
         });
     };
 
@@ -52,12 +115,12 @@ modules.productManage = function(){
         });
 
         $(self.element).find('select[data-static]').on('change', function(){
-            self.product[$(this).data('static')] = $(this).val();
+            self.product.section.id = $(this).val();
             self.profileSubmit();
         });
 
         $(self.element).find('.checkbox[data-static]').find('input, label, ins').on('click', function () {
-            self.product[$(this).closest('[data-static]').data('static')] = $(this).closest('[data-static]').find('div').hasClass('checked');
+            self.product[$(this).closest('[data-static]').data('static')] = parseInt($(this).closest('[data-static]').find('div').hasClass('checked'));
             self.profileSubmit();
         });
     };
@@ -72,7 +135,11 @@ modules.productManage = function(){
                 self.view.render('product/view/image', {image: event.target.result}, function(image){
                     $(self.element).find('[data-images]').append(image);
                 });
-                self.product.images.push(event.target.result);
+                self.product.images.push({
+                    needToUpload: true,
+                    image: event.target.result
+                });
+                self.profileSubmit();
             };
 
             if ($(this).get(0).files.length) {
@@ -83,17 +150,17 @@ modules.productManage = function(){
         $(self.element).find('[data-images]').on('click', '[data-remove]', function(){
             self.product.images.splice($(this).closest('[data-image]').index(), 1);
             $(this).closest('[data-image]').remove();
+            self.profileSubmit();
         });
     };
 
     this.manageIngredients = function () {
 
         $(self.element).find('[data-add-ingredient]').on('click', function(){
-
             var ingredient = {ingredient: {id: "", title: ""}, price: "", weight: ""};
-
             self.view.render('product/view/ingredient', {ingredient: ingredient}, function(ingredient){
                 $(self.element).find('[data-ingredients]').append(ingredient);
+                self.profileSubmit();
             });
         });
 
@@ -107,21 +174,26 @@ modules.productManage = function(){
                 group.find('[data-input]').removeAttr('disabled');
 
                 self.product.ingredients.push({
-                    id: ingredient.ingredient.id,
-                    price: null,
-                    weight: null
+                    ingredient: {
+                        id: ingredient.ingredient.id
+                    },
+                    price: "",
+                    weight: ""
                 });
 
                 group.attr('data-added', true);
+                self.profileSubmit();
             });
         });
 
         $(self.element).on('click', '[data-ingredient] [data-select]', function(){
 
             self.product.ingredients.push({
-                id: $(this).data('id'),
-                price: null,
-                weight: null
+                ingredient: {
+                    id: $(this).data('id')
+                },
+                price: "",
+                weight: ""
             });
 
             var group = $(this).closest('[data-ingredient]');
@@ -130,48 +202,61 @@ modules.productManage = function(){
             group.find('.input-group-btn').removeClass('open');
             group.find('[data-input]').removeAttr('disabled');
             group.attr('data-added', true);
+
+            self.profileSubmit();
         });
 
 
         $(self.element).on('click', '[data-ingredient] [data-remove]', function(){
 
-            if ($(this).closest('[data-ingredient]').data('added')) {
-                self.product.ingredients.splice($(this).closest('[data-ingredient]').index(), 1);
+            var group = $(this).closest('[data-ingredient]');
+
+            if (group.attr('data-added')) {
+                self.product.ingredients.splice(group.index(), 1);
             }
 
-            $(this).closest('[data-ingredient]').remove();
+            group.remove();
+            self.profileSubmit();
         });
 
 
         $(self.element).on('keyup', '[data-ingredient] [data-title]', function(){
 
-            if (!$(this).val().length) {
+            var group = $(this).closest('[data-ingredient]');
 
-                var group = $(this).closest('[data-ingredient]');
-                if (group.data('id')) {
-                    delete self.product.ingredients[group.data('id')];
-                    group.find('[data-price]').attr('disabled', true);
-                    group.find('[data-weight]').attr('disabled', true);
-                }
+            if (group.attr('data-added')) {
 
+                self.product.ingredients.splice(group.index(), 1);
+
+                group.find('[data-input]')
+                    .attr('disabled', 'disabled')
+                    .val(null);
+
+                group.removeAttr('data-added');
                 $(this).parent().removeClass('open');
+
+                self.profileSubmit();
                 return false;
             }
 
             var dropDown = $(this).parent().find('[data-list]');
             var search = $(this).val();
 
-            $(this).parent().addClass('open');
+            if (search.length) {
 
-            window.services.api.getIngredients($(this).val(), function (ingredients) {
-                self.view.render('product/view/ingredient-list', {search: search, ingredients: ingredients.ingredients}, function(list){
-                    dropDown.html(list);
+                $(this).parent().addClass('open');
+
+                window.services.api.getIngredients($(this).val(), function (ingredients) {
+                    self.view.render('product/view/ingredient-list', {search: search, ingredients: ingredients.ingredients}, function(list){
+                        dropDown.html(list);
+                    });
                 });
-            });
+            }
         });
 
         $(self.element).on('keyup', '[data-ingredient] [data-input]', function(){
             self.product.ingredients[$(this).closest('[data-ingredient]').index()][$(this).data('input')] = $(this).val();
+            self.profileSubmit();
         });
     };
 
@@ -184,19 +269,22 @@ modules.productManage = function(){
             });
 
             self.product.options.push({
-                title:null,
-                price: null,
-                weight: null
+                title: "",
+                price: "",
+                weight: ""
             });
+            self.profileSubmit();
         });
 
         $(self.element).find('[data-options]').on('keyup', 'input', function(){
             self.product.options[$(this).closest('[data-option]').index()][$(this).data('input')] = $(this).val();
+            self.profileSubmit();
         });
 
         $(self.element).find('[data-options]').on('click', '[data-remove]', function(){
             self.product.options.splice($(this).closest('[data-option]').index(), 1);
             $(this).closest('[data-option]').remove();
+            self.profileSubmit();
         });
     };
 
@@ -212,12 +300,51 @@ modules.productManage = function(){
             errors.push('description');
         }
 
-        if (!self.product.sectionId.length) {
+        if (self.product.price < 1) {
+            errors.push('price');
+        }
+
+        if (self.product.weight < 1) {
+            errors.push('weight');
+        }
+
+        if (!self.product.section.id) {
             errors.push('sectionId');
         }
 
         if (!self.product.images.length) {
             errors.push('images');
+        }
+
+        for (var i=0; i<self.product.options.length; i++) {
+
+            if (self.product.options[i].title.length < 3 || self.product.options[i].title.length > 20) {
+                errors.push('options-title');
+                break;
+            }
+
+            if (!self.product.options[i].price) {
+                errors.push('options-price');
+                break;
+            }
+
+            if (!self.product.options[i].weight) {
+                errors.push('options-weight');
+                break;
+            }
+        }
+
+        for (var i=0; i<self.product.ingredients.length; i++) {
+
+            if (!self.product.ingredients[i].price) {
+                errors.push('ingredients-price');
+                break;
+            }
+
+            if (!self.product.ingredients[i].weight) {
+                errors.push('ingredients-weight');
+                break;
+            }
         }
 
         if (!errors.length) {
@@ -226,6 +353,25 @@ modules.productManage = function(){
         else {
             $(self.element).find('[data-submit]').attr('disabled', true);
         }
+    };
+
+    this.submitProduct = function(){
+
+        $(self.element).find('[data-submit]').on('click', function(){
+
+            window.services.loader.show();
+
+            window.services.api.saveProduct(self.product, function(){
+
+                window.services.loader.hide();
+                $(self.element).find('.modal').modal('hide');
+
+            }, function(response){
+
+                window.services.loader.hide();
+                $(self.element).find('[data-form-error]').html(response.message);
+            });
+        });
     };
 
     this.unload = function (callback) {

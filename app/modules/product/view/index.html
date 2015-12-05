@@ -1,12 +1,35 @@
 <div class="row animated fadeInLeft">
-    <div class="col-xs-10">
+    <div class="col-xs-7">
         <ol class="breadcrumb breadcrumb-arrow">
-            <li class="active"><span>Продукты</span></li>
+
+            <% if (source == 'all') { %>
+
+                <li class="active"><span>Все продукты</span></li>
+
+            <% } else if (source == 'search') { %>
+
+                <li><a data-see-all="true">Все продукты</a></li>
+                <li class="active"><span>Результаты поиска "<%= search %>"</span></li>
+
+            <% } else if (source == 'section') { %>
+
+                <li><a data-see-all="true">Все продукты</a></li>
+                <li class="active"><span>Секция "<%= section.title %>"</span></li>
+
+            <% } %>
+
         </ol>
+    </div>
+    <div class="col-xs-3">
+        <form class="form-search search-only" data-form-search="true">
+            <i class="search-icon glyphicon glyphicon-search"></i>
+            <input type="text" class="form-control search-query">
+        </form>
     </div>
     <div class="col-xs-2">
         <a class="btn btn-block btn-primary" data-product-add="true">Добавить</a>
     </div>
+
 </div>
 
 <div data-product-list="true"></div>
