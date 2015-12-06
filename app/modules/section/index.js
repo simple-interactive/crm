@@ -3,7 +3,11 @@ modules.section = function(){
     this.init = function () {
 
         if (!self.params.breadcrumbs) {
-            self.params.breadcrumbs = [{title: "Управление секциями", id: null, productsCount: 0}];
+            self.params.breadcrumbs = [{
+                id: null,
+                title: window.services.locale.translate('section-management'),
+                productsCount: 0
+            }];
         }
 
         var currentSectionId = self.params.breadcrumbs[self.params.breadcrumbs.length-1].id;
@@ -37,8 +41,12 @@ modules.section = function(){
                     self.params.breadcrumbs = self.params.breadcrumbs.slice(0, $(this).data('id')+1);
                 }
                 else if ($(this).data('nav') == 'position') {
-                    alert('try to load position module');
-                    return false;
+                    module.unloadAll('layout');
+                    module.load('product', {
+                        source: 'section',
+                        sectionId: $(this).data('id')
+                    });
+                    return;
                 }
 
                 module.unloadAll('layout');
@@ -63,16 +71,23 @@ modules.section = function(){
 
                 var sectionId = $(this).data('id');
 
-                window.view.plugins.confirm(
+                window.view.plugins.dialog(
                     window.services.locale.translate("confirm-action"),
                     window.services.locale.translate("section-deleting"),
-                    "danger",
-                    function () {
-                        window.services.loader.show();
-                        window.services.api.deleteSection(sectionId, function () {
-                            self.init();
-                        });
-                    }
+                    [{
+                        title: window.services.locale.translate('yes'),
+                        style: 'danger',
+                        callback: function () {
+                            window.services.loader.show();
+                            window.services.api.deleteSection(sectionId, function () {
+                                self.init();
+                            });
+                        }
+                    }, {
+                        title: window.services.locale.translate('no'),
+                        style: 'default'
+                    }],
+                    "danger"
                 );
 
             });

@@ -8,10 +8,10 @@
         </div>
     </div>
     <div class="col-xs-3">
-        <input type="number" class="form-control" data-input="price" placeholder="Цена" <% if (ingredient.price) { %>value="<%= ingredient.price %>"<% } else { %>disabled<% } %>>
+        <input type="number" class="form-control" data-input="price" placeholder="<%= plugins.translate('price') %>" <% if (ingredient.price) { %>value="<%= ingredient.price %>"<% } else { %>disabled<% } %>>
     </div>
     <div class="col-xs-3">
-        <input type="number" class="form-control" data-input="weight" placeholder="Вес" <% if (ingredient.weight) { %>value="<%= ingredient.weight %>"<% } else { %>disabled<% } %>>
+        <input type="number" class="form-control" data-input="weight" placeholder="<%= plugins.translate('weight') %>" <% if (ingredient.weight) { %>value="<%= ingredient.weight %>"<% } else { %>disabled<% } %>>
     </div>
     <div class="col-xs-2 text-right">
         <a class="btn btn-block btn-info" data-remove="true"><span class="glyphicon glyphicon-trash"></span></a>

@@ -2,15 +2,19 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-confirm="no"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title"><%= caption %></h4>
             </div>
             <div class="modal-body">
                 <div class="alert alert-<%= style %>"><%= content %></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-confirm="yes">Да</button>
-                <button type="button" class="btn btn-default" data-confirm="no">Отмена</button>
+
+                <% for (var i=0 ; i< callbacks.length; i++) { %>
+                    <button type="button" class="btn btn-<%= callbacks[i].style %>" data-click="<%= i %>">
+                        <%= callbacks[i].title %>
+                    </button>
+                <% } %>
+
             </div>
         </div>
     </div>

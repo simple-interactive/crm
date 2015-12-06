@@ -3,7 +3,7 @@
         <li><a data-select="true" data-id="<%= ingredients[i].id %>" data-title="<%= ingredients[i].title %>"><%= ingredients[i].title %></a></li>
     <% } %>
 <% } else { %>
-    <li class="disabled"><a>(ничего не найдено)</a></li>
+    <li class="disabled"><a><%= plugins.translate('nothing-founded') %></a></li>
 <% } %>
 <li class="divider"></li>
-<li><a data-add="<%= search %>">Добавить "<%= search %>"</a></li>
+<li><a data-add="<%= search %>"><%= plugins.translate('add') %> "<%= search %>"</a></li>

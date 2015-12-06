@@ -246,16 +246,17 @@ window.services.api = function(){
                     parsedResponse = JSON.parse(response.responseText);
                 } catch (err) {}
 
-                if (response.status == 200 || response.status == 400) {
-
-                    if (response.status == 400) {
-                        window.services.loader.hide();
-                    }
-
+                if (response.status == 200) {
                     callback(parsedResponse);
                 }
-                else if (failCallback) {
+                else if (response.status == 400) {
                     failCallback(parsedResponse);
+                }
+                else {
+                    failCallback({
+                        success: false,
+                        message: 'the-server-is-currently-not-responding'
+                    });
                 }
             }
         });

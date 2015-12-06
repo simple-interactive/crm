@@ -14,8 +14,8 @@
                             <div class="col-xs-10">
                                 <div class="row">
                                     <div class="media-heading col-xs-3"><%= products[i].title %></div>
-                                    <div class="col-xs-3"><%= products[i].price %> грн</div>
-                                    <div class="col-xs-3"><%= products[i].weight %> грамм</div>
+                                    <div class="col-xs-3"><%= products[i].price %> <%= plugins.translate('uah') %></div>
+                                    <div class="col-xs-3"><%= products[i].weight %> <%= plugins.translate('gramm') %></div>
                                     <div class="col-xs-3">
                                         <a class="btn-link" data-section="true" data-id="<%= products[i].section.id %>"><%= products[i].section.title %></a>
                                     </div>
@@ -24,10 +24,10 @@
                             <div class="col-xs-2">
 
                                 <div class="btn-group btn-block">
-                                    <button type="button" class="btn btn-block btn-primary dropdown-toggle" data-toggle="dropdown">Настройки <span class="caret"></span></button>
+                                    <button type="button" class="btn btn-block btn-primary dropdown-toggle" data-toggle="dropdown"><%= plugins.translate('settings') %> <span class="caret"></span></button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a data-edit="true" data-id="<%= products[i].id %>"><span class="glyphicon glyphicon-edit"></span> Редактировать</a></li>
-                                        <li><a data-remove="true" data-id="<%= products[i].id %>"><span class="glyphicon glyphicon-trash"></span> Удалить</a></li>
+                                        <li><a data-edit="true" data-id="<%= products[i].id %>"><span class="glyphicon glyphicon-edit"></span> <%= plugins.translate('edit') %></a></li>
+                                        <li><a data-remove="true" data-id="<%= products[i].id %>"><span class="glyphicon glyphicon-trash"></span> <%= plugins.translate('remove') %></a></li>
                                     </ul>
                                 </div>
 

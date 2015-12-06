@@ -16,12 +16,12 @@
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= user.email %> <b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li class="dropdown-header">Аккаунт</li>
-                        <li><a href="#">Настройки</a></li>
-                        <li><a href="#">Изменить пароль</a></li>
-                        <li><a href="#">Написать администратору</a></li>
+                        <li class="dropdown-header"><%= plugins.translate('menu-account') %></li>
+                        <li><a href="#"><%= plugins.translate('menu-settings') %></a></li>
+                        <li><a href="#"><%= plugins.translate('menu-change-password') %></a></li>
+                        <li><a href="#"><%= plugins.translate('menu-contact-administrator') %></a></li>
                         <li class="divider"></li>
-                        <li><a data-menu-exit="true">Выход</a></li>
+                        <li><a data-menu-exit="true"><%= plugins.translate('menu-logout') %></a></li>
                     </ul>
                 </li>
             </ul>
@@ -32,21 +32,19 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" data-menu="true">
-            <p class="text-muted text-uppercase text-shadow-light">Контент</p>
+            <p class="text-muted text-uppercase text-shadow-light"><%= plugins.translate('menu-content') %></p>
             <ul class="nav nav-sidebar">
-                <li data-href="product"><a>Продукты</a></li>
-                <li data-href="section"><a>Секции</a></li>
+                <li data-href="product"><a><%= plugins.translate('menu-products') %></a></li>
+                <li data-href="section"><a><%= plugins.translate('menu-section') %></a></li>
             </ul>
-            <p class="text-muted text-uppercase">Внешний вид</p>
+            <p class="text-muted text-uppercase"><%= plugins.translate('menu-view') %></p>
             <ul class="nav nav-sidebar">
-                <li><a href="">Шаблон меню</a></li>
-                <li><a href="">Цветовая палитра</a></li>
+                <li><a href=""><%= plugins.translate('menu-template') %></a></li>
+                <li><a href=""><%= plugins.translate('menu-colour') %></a></li>
             </ul>
-            <p class="text-muted text-uppercase">Статистика</p>
+            <p class="text-muted text-uppercase"><%= plugins.translate('menu-analitics') %></p>
             <ul class="nav nav-sidebar">
                 <li><a href="">Пункт 1</a></li>
-                <li><a href="">Пункт 2</a></li>
-                <li><a href="">Пункт 3</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" data-container="main">

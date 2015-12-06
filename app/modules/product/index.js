@@ -88,15 +88,21 @@ modules.product = function(){
 
             var productId = $(this).data('id');
 
-            window.view.plugins.confirm(
+            window.view.plugins.dialog(
                 window.services.locale.translate('confirm-action'),
                 window.services.locale.translate('product-removing'),
-                'danger',
-                function(){
-                    window.services.api.deleteProduct(productId, function(){
-                        self.drawProducts();
-                    });
-                }
+                [{
+                    title: window.services.locale.translate('yes'),
+                    style: 'danger',
+                    callback: function(){
+                        window.services.api.deleteProduct(productId, function(){
+                            self.drawProducts();
+                        });
+                    }
+                }, {
+                    title: window.services.locale.translate('no'),
+                    style: 'default'
+                }]
             );
         });
 
