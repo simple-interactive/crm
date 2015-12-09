@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
     var config = {
         prod : {
-            endpoint: 'http://simple.backend/'
+            endpoint: ' '
         },
         dev: {
             endpoint: 'http://simple.backend/'

@@ -51,7 +51,7 @@ modules.productManage = function(){
 
     this.manageForm = function(){
 
-        self.view.render('product/view/create', {product: self.product, tree: self.tree}, function(renderedHtml){
+        self.view.render('product/view/manage', {product: self.product, tree: self.tree}, function(renderedHtml){
             $(self.element).html(renderedHtml);
         });
 
