@@ -24,17 +24,24 @@
                                 <select data-selecter="true" class="form-control col-xs-12" data-static="sectionId">
                                     <option value=""><%= plugins.translate('choose-section') %></option>
                                     <% for (var i=0; i<tree.length ; i++) { %>
-                                        <optgroup label="<%= tree[i].title %>">
-                                            <% for (var j=0; j<tree[i]['sub-sections'].length; j++) {%>
 
-                                                <% if (product.section.id == tree[i]['sub-sections'][j].id) { %>
-                                                    <option value="<%= tree[i]['sub-sections'][j].id %>" selected="selected"><%= tree[i]['sub-sections'][j].title %></option>
-                                                <% } else { %>
-                                                    <option value="<%= tree[i]['sub-sections'][j].id %>"><%= tree[i]['sub-sections'][j].title %></option>
+                                        <% if (tree[i]['sub-sections']) { %>
+
+                                            <optgroup label="<%= tree[i].title %>">
+                                                <% for (var j=0; j<tree[i]['sub-sections'].length; j++) {%>
+
+                                                    <% if (product.section.id == tree[i]['sub-sections'][j].id) { %>
+                                                        <option value="<%= tree[i]['sub-sections'][j].id %>" selected="selected"><%= tree[i]['sub-sections'][j].title %></option>
+                                                    <% } else { %>
+                                                        <option value="<%= tree[i]['sub-sections'][j].id %>"><%= tree[i]['sub-sections'][j].title %></option>
+                                                    <% } %>
+
                                                 <% } %>
-
-                                            <% } %>
-                                        </optgroup>
+                                            </optgroup>
+                                        <% } %>
+                                        <% } else { %>
+                                            <option value="<%= tree[i].id %>"><%= tree[i].title %></option>
+                                        <% } %>
                                     <% } %>
                                 </select>
                             </div>
