@@ -2,7 +2,7 @@ modules.skin = function(){
 
     this.style = {
         colors : {
-            main: '#FF0000',
+            brand: '#FF0000',
             foreground: '#000000',
             background: '#FFFFFF'
         },
@@ -114,12 +114,23 @@ modules.skin = function(){
 
                 services.api.saveStyle(
                     self.style,
-                    function(respose){
+                    function(){
+
                         services.loader.hide();
+
+                        $(self.element).find('[data-error]')
+                            .removeClass('text-danger')
+                            .addClass('text-success')
+                            .html(services.locale.translate('saved-successfully'));
                     },
                     function(response){
+
                         services.loader.hide();
-                        $(self.element).find('[data-error]').html(services.locale.translate(response.message));
+
+                        $(self.element).find('[data-error]')
+                            .removeClass('text-success')
+                            .addClass('text-danger')
+                            .html(services.locale.translate(response.message));
                     }
                 );
             });
@@ -140,7 +151,7 @@ modules.skin = function(){
             return;
         }
 
-        if (!self.style.colors.main.length || !self.style.colors.foreground.length || !self.style.colors.background.length) {
+        if (!self.style.colors.brand.length || !self.style.colors.foreground.length || !self.style.colors.background.length) {
             $(self.element).find('[data-save]').attr('disabled', 'disabled');
             return;
         }
