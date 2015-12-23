@@ -247,3 +247,14 @@ form[role=search] {
 .pagination a {
     cursor: pointer;
 }
+
+
+.image-uploader.company-logo .holder {
+    height: 100px;
+    background-size: initial;
+}
+
+.image-uploader.background-image .holder {
+    height: 173px;
+    background-size: initial;
+}

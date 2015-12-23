@@ -207,6 +207,26 @@ window.services.api = function(){
     /************************** END INGREDIENTS ***************************/
 
     /**
+     * Gets menu styles
+     *
+     * @param {Function} callback
+     */
+    this.getStyle = function(callback){
+        self.call('get', 'style', {}, callback);
+    };
+
+    /**
+     * Saves menu styles
+     *
+     * @param {Object} style
+     * @param {Function} successCallback
+     * @param {Function} failCallback
+     */
+    this.saveStyle = function(style, successCallback, failCallback){
+        self.call('post', 'style/save', style, successCallback, failCallback);
+    };
+
+    /**
      * Send request to an api
      *
      * @param {string} method

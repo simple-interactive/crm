@@ -54,12 +54,11 @@ window.module = function () {
 
         if (typeof modules[name] == 'function') {
             modules[name] = new modules[name]();
+        } else {
+            modules[name].constructor();
         }
 
         try {
-            if (modules[name].constructor) {
-                modules[name].constructor();
-            }
 
             modules[name].element = element;
             modules[name].view = view();
