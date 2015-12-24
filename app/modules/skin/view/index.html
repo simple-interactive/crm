@@ -56,7 +56,7 @@
         <h4><%= plugins.translate('background-title') %></h4>
 
         <div class="image-uploader background-image" data-image-holder="true">
-            <div class="holder" <% if (backgroundImage.url) { %> style="background-size: contain; background-image: url(<%= backgroundImage.url %>)"<% } %>></div>
+            <div class="holder" <% if (backgroundImage.url) { %> style="background-size: cover; background-image: url(<%= backgroundImage.url %>)"<% } %>></div>
             <div class="controls">
                 <a class="btn btn-info"><%= plugins.translate('click-to-select-an-image') %></a>
                 <input type="file" />

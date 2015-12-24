@@ -114,14 +114,12 @@ modules.skin = function(){
 
                 services.api.saveStyle(
                     self.style,
-                    function(){
+                    function(response){
 
                         services.loader.hide();
 
-                        $(self.element).find('[data-error]')
-                            .removeClass('text-danger')
-                            .addClass('text-success')
-                            .html(services.locale.translate('saved-successfully'));
+                        self.style = response.style;
+                        self.drawStyle();
                     },
                     function(response){
 
