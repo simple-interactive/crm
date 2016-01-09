@@ -85,6 +85,11 @@ module.exports = function(grunt) {
         grunt.file.write(build+'/app.min.js', allJs);
     });
 
+    grunt.registerTask('config', null, function(){
+        var allJs = "var config = " + JSON.stringify(selectedConfig) + ";" + grunt.file.read(build+'/app.min.js');
+        grunt.file.write(build+'/app.min.js', allJs);
+    });
+
     grunt.registerTask('layout', null, function(){
 
         function replaceSection(section, content) {
@@ -95,12 +100,12 @@ module.exports = function(grunt) {
 
         replaceSection('Grunt:Build:JSSection', "<script src=\"app.min.js?_=" + Number(new Date()) + "\"></script>");
         replaceSection('Grunt:Build:CSSSection', "<link href=\"app.min.css?_=" + Number(new Date()) + "\" rel=\"stylesheet\" />");
-        replaceSection('Grunt:Build:Config', "<script>var config = " + JSON.stringify(selectedConfig) + ";</script>");
+        replaceSection('Grunt:Build:Config', null);
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['uglify', 'cssmin', 'copy', 'concatTemplates', 'layout']);
+    grunt.registerTask('default', ['uglify', 'cssmin', 'copy', 'concatTemplates', 'config', 'layout']);
 };

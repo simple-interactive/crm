@@ -18,7 +18,7 @@
             <label><%= plugins.translate('company-logo') %></label>
 
             <div class="image-uploader company-logo" data-logo-holder="true">
-                <div class="holder" <% if (backgroundImage.url) { %> style="background-image: url(<%= backgroundImage.url %>)"<% } %>></div>
+                <div class="holder" <% if (company.logo.url) { %> style="background-image: url(<%= company.logo.url %>)"<% } %>></div>
                 <div class="controls">
                     <a class="btn btn-info"><%= plugins.translate('click-to-select-an-image') %></a>
                     <input type="file" />
