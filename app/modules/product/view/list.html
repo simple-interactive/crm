@@ -5,7 +5,7 @@
         <% for (var i=0; i<products.length; i++ ) { %>
 
             <div class="col-xs-12 item" data-product="true">
-                <div class="media animated fadeInLeft">
+                <div class="media animated fadeIn">
                     <a class="pull-left">
                         <div class="media-object img-rounded" style="background-image: url(<%= products[i].images[0].url %>);"></div>
                     </a>
@@ -41,7 +41,7 @@
 
     <% } else { %>
 
-        <div class="col-xs-12 animated fadeInLeft">
+        <div class="col-xs-12 animated fadeIn">
             <p class="lead"><%= plugins.translate('there-no-products') %></p>
         </div>
 
@@ -52,7 +52,7 @@
 
     <div class="row" data-paginator="true">
         <div class="col-xs-12 text-center">
-            <ul class="pagination animated fadeInLeft">
+            <ul class="pagination animated fadeIn">
 
                 <% if (page == 0) { %>
                     <li class="disabled"><a><%= plugins.translate('prev') %></a></li>

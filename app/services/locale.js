@@ -62,7 +62,7 @@ window.services.locale = function() {
         "next": { 'ru': 'Вперед'},
         "prev": { 'ru': 'Назад'},
         "section-management": { 'ru': 'Управление разделами'},
-        "show-products": { 'ru': 'покзать позиции'},
+        "show-products": { 'ru': 'показать позиции'},
         "section-deleting": { 'ru': 'Удалить раздел?'},
         "section-editing": { 'ru': 'Управление разделом'},
         "click-to-select-an-image": { 'ru': 'Нажмите для выбора изображения'},
