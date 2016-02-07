@@ -44,7 +44,7 @@ window.services.locale = function() {
         "title": { 'ru': 'Название'},
         "decription": { 'ru': 'Описание'},
         "add-option": { 'ru': 'Добавить опцию'},
-        "add-ingredient": { 'ru': 'Добавить ингредиент'},
+        "manage-ingredients": { 'ru': 'Управление ингредиентами'},
         "cancel": { 'ru': 'Отмена'},
         "save": { 'ru': 'Сохранить'},
         "nothing-founded": { 'ru': 'Нет результатов'},
@@ -77,6 +77,8 @@ window.services.locale = function() {
         "style-color-background": { 'ru': 'Цвет заднего плана'},
         "background-title": { 'ru': 'Фоновое изображение'},
         "style-save": { 'ru': 'Сохранить'},
+        "serving-time": { 'ru': 'Время подачи'},
+        "min": { 'ru': 'мин'},
     };
 
     var self = this;

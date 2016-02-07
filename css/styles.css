@@ -258,3 +258,38 @@ form[role=search] {
     height: 173px;
     background-size: initial;
 }
+
+[data-option] > div {
+    padding-right: 0px;
+}
+[data-option] {
+    padding-right: 15px;
+}
+
+.option-manage {
+    background-color: rgba(255,255,255,0.8);
+    min-height: 250px;
+    position: absolute;
+    top: 0px;
+    left: 29px;
+    width: 441px;
+    z-index: 1;
+}
+
+[data-ingredient-manage] {
+    z-index: 1051;
+}
+
+.modal-backdrop:nth-child(0) {
+    z-index: 1050;
+}
+
+[data-ingredient-manage] .modal-body {
+    height: 350px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+[data-ingredient-manage] [data-ingredient-list] > .row {
+    margin-top: 15px;
+}

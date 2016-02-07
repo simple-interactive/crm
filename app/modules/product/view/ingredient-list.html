@@ -1,9 +1,18 @@
-<% if (ingredients.length) { %>
-    <% for (var i=0; i < ingredients.length; i++) { %>
-        <li><a data-select="true" data-id="<%= ingredients[i].id %>" data-title="<%= ingredients[i].title %>"><%= ingredients[i].title %></a></li>
-    <% } %>
-<% } else { %>
-    <li class="disabled"><a><%= plugins.translate('nothing-founded') %></a></li>
+<% for (var i=0; i < ingredients.length; i++ ) { %>
+
+    <div class="row" data-ingredient="true">
+        <div class="col-xs-4">
+            <%= ingredients[i].ingredient.title %>
+        </div>
+        <div class="col-xs-3">
+            <%= parseFloat(ingredients[i].price || 0) %> <%= plugins.translate('uah') %>
+        </div>
+        <div class="col-xs-3">
+            <%= parseFloat(ingredients[i].weight || 0) %> <%= plugins.translate('gramm') %>
+        </div>
+        <div class="col-xs-2 text-right">
+            <a class="btn btn-block btn-danger" data-remove="true"><span class="glyphicon glyphicon-trash"></span></a>
+        </div>
+    </div>
+
 <% } %>
-<li class="divider"></li>
-<li><a data-add="<%= search %>"><%= plugins.translate('add') %> "<%= search %>"</a></li>

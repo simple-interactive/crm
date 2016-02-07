@@ -1,0 +1,13 @@
+<% var exists = false; if (ingredients.length) { %>
+    <% for (var i=0; i < ingredients.length; i++) { %>
+        <% if (search.toLowerCase() == ingredients[i].title.toLowerCase()) { exists = true; } %>
+        <li><a data-select="true" data-id="<%= ingredients[i].id %>" data-title="<%= ingredients[i].title %>"><%= ingredients[i].title %></a></li>
+    <% } %>
+<% } else { %>
+    <li class="disabled"><a><%= plugins.translate('nothing-founded') %></a></li>
+<% } %>
+
+<% if (!exists) { %>
+    <li class="divider"></li>
+    <li><a data-add-db="<%= search %>"><%= plugins.translate('add') %> "<%= search %>"</a></li>
+<% } %>

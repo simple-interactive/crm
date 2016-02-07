@@ -11,9 +11,10 @@ modules.productManage = function(){
             id: "",
             title: ""
         },
+        servingTime: "",
         images: [],
         ingredients: [],
-        options:[]
+        options: []
     };
 
     this.tree = [];
@@ -38,6 +39,7 @@ modules.productManage = function(){
         window.services.api.getSectionTree(function(tree){
 
             self.tree = tree.sections;
+
             self.manageForm();
             self.manageStaticFields();
             self.manageImages();
@@ -112,107 +114,14 @@ modules.productManage = function(){
 
     this.manageIngredients = function () {
 
-        $(self.element).find('[data-add-ingredient]').on('click', function(){
-            var ingredient = {ingredient: {id: "", title: ""}, price: "", weight: ""};
-            self.view.render('product/view/ingredient', {ingredient: ingredient}, function(ingredient){
-                $(self.element).find('[data-ingredients]').append(ingredient);
-                self.profileSubmit();
+        $(self.element).find('[data-add-ingredients]').on('click', function(){
+
+            module.load('productIngredient', {
+                ingredients: self.product.ingredients,
+                callback: function(ingredients){
+                    self.product.ingredients = ingredients;
+                }
             });
-        });
-
-        $(self.element).on('click', '[data-ingredient] [data-add]', function(){
-            var group = $(this).closest('[data-ingredient]');
-            window.services.api.addIngredient($(this).data('add'), function(ingredient){
-
-                group.find('input').val(ingredient.ingredient.title);
-                group.find('.input-group-btn').removeClass('open');
-
-                group.find('[data-input]').removeAttr('disabled');
-
-                self.product.ingredients.push({
-                    ingredient: {
-                        id: ingredient.ingredient.id
-                    },
-                    price: "",
-                    weight: ""
-                });
-
-                group.attr('data-added', true);
-                self.profileSubmit();
-            });
-        });
-
-        $(self.element).on('click', '[data-ingredient] [data-select]', function(){
-
-            self.product.ingredients.push({
-                ingredient: {
-                    id: $(this).data('id')
-                },
-                price: "",
-                weight: ""
-            });
-
-            var group = $(this).closest('[data-ingredient]');
-
-            group.find('[data-title]').val($(this).data('title'));
-            group.find('.input-group-btn').removeClass('open');
-            group.find('[data-input]').removeAttr('disabled');
-            group.attr('data-added', true);
-
-            self.profileSubmit();
-        });
-
-
-        $(self.element).on('click', '[data-ingredient] [data-remove]', function(){
-
-            var group = $(this).closest('[data-ingredient]');
-
-            if (group.attr('data-added')) {
-                self.product.ingredients.splice(group.index(), 1);
-            }
-
-            group.remove();
-            self.profileSubmit();
-        });
-
-
-        $(self.element).on('keyup', '[data-ingredient] [data-title]', function(){
-
-            var group = $(this).closest('[data-ingredient]');
-
-            if (group.attr('data-added')) {
-
-                self.product.ingredients.splice(group.index(), 1);
-
-                group.find('[data-input]')
-                    .attr('disabled', 'disabled')
-                    .val(null);
-
-                group.removeAttr('data-added');
-                $(this).parent().removeClass('open');
-
-                self.profileSubmit();
-                return false;
-            }
-
-            var dropDown = $(this).parent().find('[data-list]');
-            var search = $(this).val();
-
-            if (search.length) {
-
-                $(this).parent().addClass('open');
-
-                window.services.api.getIngredients($(this).val(), function (ingredients) {
-                    self.view.render('product/view/ingredient-list', {search: search, ingredients: ingredients.ingredients}, function(list){
-                        dropDown.html(list);
-                    });
-                });
-            }
-        });
-
-        $(self.element).on('keyup', '[data-ingredient] [data-input]', function(){
-            self.product.ingredients[$(this).closest('[data-ingredient]').index()][$(this).data('input')] = $(this).val();
-            self.profileSubmit();
         });
     };
 
@@ -220,15 +129,17 @@ modules.productManage = function(){
 
         $(self.element).find('[data-add-options]').on('click', function(){
 
-            self.view.render('product/view/option', {option:{title: "", price: "", weight: ""}}, function(option){
-                $(self.element).find('[data-options]').append(option);
+            self.view.render('product/view/option', {option:{title: "", price: "", weight: ""}}, function(tpl){
+                $(self.element).find('[data-options]').append(tpl);
             });
 
             self.product.options.push({
                 title: "",
                 price: "",
-                weight: ""
+                weight: "",
+                ingredients: []
             });
+
             self.profileSubmit();
         });
 
@@ -241,6 +152,20 @@ modules.productManage = function(){
             self.product.options.splice($(this).closest('[data-option]').index(), 1);
             $(this).closest('[data-option]').remove();
             self.profileSubmit();
+        });
+
+        $(self.element).find('[data-options]').on('click', '[data-edit]', function(){
+
+            var optionIndex = $(this).closest('[data-option]').index();
+
+            module.load('productIngredient', {
+                ingredients: self.product.options[optionIndex].ingredients,
+                callback: function(ingredients){
+                    self.product.options[optionIndex].ingredients = ingredients;
+                }
+            });
+
+
         });
     };
 
@@ -258,6 +183,10 @@ modules.productManage = function(){
 
         if (self.product.price < 1) {
             errors.push('price');
+        }
+
+        if (self.product.servingTime == 0) {
+            errors.push('servingTime');
         }
 
         if (self.product.weight < 1) {

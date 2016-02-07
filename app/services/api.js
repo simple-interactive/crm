@@ -189,9 +189,10 @@ window.services.api = function(){
      *
      * @param {string} title
      * @param {function} callback
+     * @param {function} failCallback
      */
-    this.addIngredient = function(title, callback){
-        self.call('post', 'ingredient/save', {title: title}, callback);
+    this.addIngredient = function(title, callback, failCallback){
+        self.call('post', 'ingredient/save', {title: title}, callback, failCallback);
     };
 
     /**

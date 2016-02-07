@@ -20,7 +20,7 @@
                                 <textarea class="form-control" rows="3"  data-static="description" name="description" placeholder="<%= plugins.translate('decription') %>"><%= product.description %></textarea>
                             </div>
 
-                            <div class="col-xs-12">
+                            <div class="col-xs-6">
                                 <select data-selecter="true" class="form-control col-xs-12" data-static="sectionId">
                                     <option value=""><%= plugins.translate('choose-section') %></option>
                                     <% for (var i=0; i<tree.length ; i++) { %>
@@ -43,6 +43,12 @@
                                         <% } %>
                                     <% } %>
                                 </select>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="<%= plugins.translate('serving-time') %>" data-static="servingTime" value="<%= product.servingTime %>">
+                                    <span class="input-group-addon"><%= plugins.translate('min') %></span>
+                                </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="input-group">
@@ -76,15 +82,6 @@
                         </div>
                         <div class="col-xs-6">
 
-                            <div data-ingredients="true">
-                                <% for (var i=0; i < product.ingredients.length; i++) { %>
-                                    <%= plugins.partial('product/view/ingredient', {ingredient: product.ingredients[i]}) %>
-                                <% } %>
-                            </div>
-                            <div class="col-xs-12">
-                                <a class="btn btn-block btn-info" data-add-ingredient="true"><%= plugins.translate('add-ingredient') %></a>
-                            </div>
-
                             <div class="options" data-options="true">
                                 <% for (var i=0; i < product.options.length; i++) { %>
                                     <%= plugins.partial('product/view/option', {option: product.options[i]}) %>
@@ -92,6 +89,9 @@
                             </div>
                             <div class="col-xs-12">
                                 <a class="btn btn-block btn-info" data-add-options="true"><%= plugins.translate('add-option') %></a>
+                            </div>
+                            <div class="col-xs-12">
+                                <a class="btn btn-block btn-info" data-add-ingredients="true"><%= plugins.translate('manage-ingredients') %></a>
                             </div>
 
                         </div>
