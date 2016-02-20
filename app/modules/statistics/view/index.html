@@ -1,0 +1,15 @@
+<ol class="breadcrumb breadcrumb-arrow animated fadeIn">
+    <li class="active"><span><%= plugins.translate('statistics') %></span></li>
+</ol>
+
+<div class="row">
+
+    <div data-filter="true" class="animated fadeIn col-xs-4">
+        <%= plugins.partial('statistics/view/filter', {sections: sections, filter: filter, products: products}) %>
+    </div>
+
+    <div class="col-xs-8">
+        <div data-grid="true"></div>
+    </div>
+</div>
+

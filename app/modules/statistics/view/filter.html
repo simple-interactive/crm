@@ -1,0 +1,85 @@
+
+<div class="row form-group">
+    <div class="col-xs-12">
+
+        <select data-selecter="true" data-section="true" class="form-control col-xs-12">
+            <option value=""><%= plugins.translate('all-sections') %></option>
+            <% sections.forEach(function(section){ %>
+                <option value="<%= section.id %>" <% if (filter.sectionId == section.id) { %>selected="selected"<% } %>><%= section.title %></option>
+            <% }); %>
+        </select>
+
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col-xs-12">
+
+        <select data-selecter="true" data-product="true" class="form-control col-xs-12">
+            <option value=""><%= plugins.translate('all-products') %></option>
+            <% products.forEach(function(product){ %>
+                <option value="<%= product.id %>" <% if (filter.productId == product.id) { %>selected="selected"<% } %>><%= product.title %></option>
+            <% }); %>
+        </select>
+
+    </div>
+</div>
+
+<div class="row form-group">
+
+    <div class="col-xs-6">
+
+        <input type="text"
+               class="form-control col-xs-12 date"
+               value="<%= plugins.date('{dd}.{mm}.{yyyy} {hh}:{mins}', filter.startTime) %>"
+               data-value="startTime"
+               data-datetime="true"/>
+    </div>
+    <div class="col-xs-6">
+
+        <input type="text"
+               class="form-control col-xs-12 date"
+               value="<%= plugins.date('{dd}.{mm}.{yyyy} {hh}:{mins}', filter.endTime) %>"
+               data-value="endTime"
+               data-datetime="true" />
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-xs-12" data-ingredient="true">
+
+        <input type="hidden" data-ingredient-id="true" />
+        <div class="input-group">
+            <div class="input-group-btn">
+                <input type="text" data-ingredient-title="true" class="form-control col-xs-12" placeholder="<%= plugins.translate('ingredient') %>" />
+                <ul class="dropdown-menu" data-ingredient-list="true"></ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col-xs-6">
+        <select data-selecter="true" data-status="true" class="form-control col-xs-12">
+            <option value=""><%= plugins.translate('all-statuses') %></option>
+            <option value="success" <% if (filter.status == 'success') { %>selected="selected"<% } %>><%= plugins.translate('order-status-successful') %></option>
+            <option value="canceled" <% if (filter.status == 'canceled') { %>selected="selected"<% } %>><%= plugins.translate('order-status-canceled') %></option>
+        </select>
+    </div>
+    <div class="col-xs-6">
+        <select data-selecter="true" data-payment-method="true" class="form-control col-xs-12">
+            <option value=""><%= plugins.translate('all-payment-methods') %></option>
+            <option value="cash" <% if (filter.paymentMethod == 'cash') { %>selected="selected"<% } %>><%= plugins.translate('order-payment-cash') %></option>
+            <option value="card" <% if (filter.paymentMethod == 'card') { %>selected="selected"<% } %>><%= plugins.translate('order-payment-card') %></option>
+        </select>
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col-xs-12">
+        <div class="form-group has-feedback">
+            <input class="form-control col-xs-12" data-query="true" placeholder="<%= plugins.translate('type-to-search') %>"/>
+            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+        </div>
+    </div>
+</div>

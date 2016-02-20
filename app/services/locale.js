@@ -87,6 +87,8 @@ window.services.locale = function() {
         "all-payment-methods": { 'ru': 'Все способы оплаты'},
         "order-payment-cash": { 'ru': 'Наличные'},
         "order-payment-card": { 'ru': 'Безнал'},
+        "liqpay-publckey": { 'ru': 'Публичный ключ LiqPay'},
+        "liqpay-privatekey": { 'ru': 'Приватный ключ LiqPay'},
     };
 
     var self = this;
