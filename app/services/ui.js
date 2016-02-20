@@ -5,6 +5,7 @@ window.services.ui = function(){
         self.iCheck();
         self.selecter();
         self.inputAddon();
+        self.dateTime();
 
         (function($) {
 
@@ -35,7 +36,15 @@ window.services.ui = function(){
     this.selecter = function() {
         self.listen('[data-selecter]', function (element) {
             $(element).selecter();
-        })
+        });
+    };
+
+    this.dateTime = function(){
+        self.listen('[data-datetime]', function(element){
+            $(element).datetimepicker({
+                locale: services.locale.getLocale()
+            });
+        });
     };
 
     this.inputAddon = function(){

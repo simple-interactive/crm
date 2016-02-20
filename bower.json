@@ -7,6 +7,7 @@
     "icheck": "https://github.com/fronteed/iCheck.git",
     "bootflat": "https://github.com/bootflat/bootflat.github.io.git",
     "animatecss": "https://github.com/daneden/animate.css.git",
-    "jqueryui": "http://code.jquery.com/ui/1.11.4/jquery-ui.js"
+    "jqueryui": "http://code.jquery.com/ui/1.11.4/jquery-ui.js",
+    "eonasdan-bootstrap-datetimepicker": "latest"
   }
 }

@@ -228,6 +228,60 @@ window.services.api = function(){
     };
 
     /**
+     * Get client settings
+     *
+     * @param {Function} successCallback
+     */
+    this.getSettings = function(successCallback){
+        self.call('get', 'settings', {}, successCallback);
+    };
+
+    /**
+     * Set client settings
+     *
+     * @param {Object} settings
+     * @param {Function} successCallback
+     */
+    this.setSettings = function(settings, successCallback){
+        self.call('post', 'settings', {settings: settings}, successCallback);
+    };
+
+    /**
+     * Gets common information
+     * @param {Function} successCallback
+     */
+    this.statisticsCommon = function(successCallback){
+
+        successCallback({
+            ingredients: [{
+                id: 'ing-id1',
+                title: 'Ingredient1'
+            },{
+                id: 'ing-id2',
+                title: 'Ingredient2'
+            }],
+            products: [{
+                id: 'prod-1',
+                title: 'Product 1'
+            },{
+                id: 'prod-2',
+                title: 'Product 2'
+            }],
+            sections: [{
+                id: 'sec-2',
+                title: 'Section 1'
+            }, {
+                id: 'sec-3',
+                title: 'Section 2'
+            }]
+        });
+
+        return;
+
+        self.call('get', 'statistics/common', {}, successCallback);
+    };
+
+    /**
      * Send request to an api
      *
      * @param {string} method

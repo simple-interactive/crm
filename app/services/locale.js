@@ -79,6 +79,14 @@ window.services.locale = function() {
         "style-save": { 'ru': 'Сохранить'},
         "serving-time": { 'ru': 'Время подачи'},
         "min": { 'ru': 'мин'},
+        "all-sections": { 'ru': 'Все секции'},
+        "ingredient": { 'ru': 'Ингридиенты'},
+        "all-statuses": { 'ru': 'Все статусы'},
+        "order-status-successful": { 'ru': 'Выполнено'},
+        "order-status-canceled": { 'ru': 'Отменен'},
+        "all-payment-methods": { 'ru': 'Все способы оплаты'},
+        "order-payment-cash": { 'ru': 'Наличные'},
+        "order-payment-card": { 'ru': 'Безнал'},
     };
 
     var self = this;

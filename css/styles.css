@@ -293,3 +293,76 @@ form[role=search] {
 [data-ingredient-manage] [data-ingredient-list] > .row {
     margin-top: 15px;
 }
+
+[data-module=statistics] .selecter {
+    max-width: 100%;
+}
+
+[data-module=statistics] .selecter.bottom.open .selecter-selected {
+    border-radius: 3px 3px 0 0 !important;
+}
+
+[data-module=statistics] .selecter.bottom.open .selecter-options {
+    border-radius: 0 0 4px 4px !important;
+    -webkit-border-radius: 0 0 4px 4px !important;
+}
+
+[data-module=statistics] .selecter.bottom .selecter-options {
+    top: 100%;
+    bottom: initial;
+    border-width: 0 1px 1px;
+}
+
+[data-module=statistics] .selecter .selecter-selected:after {
+    top: 0 !important;
+}
+
+[data-module=statistics] .selecter {
+    margin: 0 !important;
+}
+
+[data-module=statistics] .selecter-selected {
+    height: 34px;
+}
+
+[data-module=statistics] .bootstrap-datetimepicker-widget {
+    background-color: #E6E9ED !important;
+}
+
+[data-module=statistics] .bootstrap-datetimepicker-widget.dropdown-menu {
+    background-color: initial;
+}
+
+[data-module=statistics] .bootstrap-datetimepicker-widget table td span:hover {
+    background-color: #434a54;
+    color: #EEEEEE;
+}
+
+[data-action="togglePicker"] > span {
+    background-color: #434a54;
+}
+
+[data-action="togglePicker"]:hover {
+    background-color: transparent !important;
+}
+
+.bootstrap-datetimepicker-widget .timepicker-minute, .bootstrap-datetimepicker-widget .timepicker-hour {
+    margin-top: 1px;
+}
+
+.bootstrap-datetimepicker-widget .timepicker-picker {
+    margin-top: 2px;
+}
+
+.bootstrap-datetimepicker-widget .timepicker-picker .btn, .bootstrap-datetimepicker-widget .timepicker-picker .btn:hover {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.bootstrap-datetimepicker-widget .timepicker-picker a.btn {
+    color: #4fc1e9;
+}
+
+input.date {
+    cursor: pointer;
+}

@@ -38,6 +38,9 @@ module.exports = function(grunt) {
                         'bower_components/bootstrap/dist/js/bootstrap.js',
                         'bower_components/icheck/icheck.js',
                         'bower_components/selecter/jquery.fs.selecter.js',
+                        'bower_components/moment/locale/ru.js',
+                        'bower_components/moment/moment.js',
+                        'bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
                         'app/**/*.js'
                     ]
                 }
@@ -52,6 +55,7 @@ module.exports = function(grunt) {
                         'bower_components/icheck/skins/square/_all.css',
                         'bower_components/selecter/jquery.fs.selecter.css',
                         'bower_components/animatecss/animate.css',
+                        'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
                         'css/**/*.css'
                     ]
                 }

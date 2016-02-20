@@ -6,7 +6,7 @@ $(function () {
         var values = {
             '{yyyy}' : date.getFullYear(),
             '{yy}'   : date.getFullYear().toString().substr(2),
-            '{mm}'   : (date.getMonth() < 10)?"0"+date.getMonth():date.getMonth(),
+            '{mm}'   : (date.getMonth() < 10)?"0"+(date.getMonth()+1):(date.getMonth()+1),
             '{m}'    : date.getMonth(),
             '{dd}'   : (date.getDate() < 10 )?"0"+date.getDate():date.getDate(),
             '{d}'    : date.getDay(),
