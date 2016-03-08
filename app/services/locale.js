@@ -89,6 +89,10 @@ window.services.locale = function() {
         "order-payment-card": { 'ru': 'Безнал'},
         "liqpay-publckey": { 'ru': 'Публичный ключ LiqPay'},
         "liqpay-privatekey": { 'ru': 'Приватный ключ LiqPay'},
+        "menu-statistics": {'ru': 'Статистика'},
+        "statistics": {'ru': 'Статистика'},
+        "total-order-price": {'ru': 'Сумма заказов'},
+        "there-no-data": {'ru': 'Нет данных статистики'},
     };
 
     var self = this;

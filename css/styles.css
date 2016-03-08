@@ -366,3 +366,18 @@ form[role=search] {
 input.date {
     cursor: pointer;
 }
+
+[data-module=statistics] .sum {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+[data-module=statistics] .sum span {
+    padding: 0 !important;
+    margin-left: 5px;
+}
+
+[data-module=statistics] .statistics .col-xs-12 hr {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}

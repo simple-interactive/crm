@@ -1,1 +1,60 @@
-<br>DATA-GRID<br>
+<div class="row statistics">
+
+    <% if (data.products.length) { %>
+
+    <% for (var i=0; i<data.products.length; i++ ) { %>
+
+    <div class="col-xs-8">
+        <%= data.products[i].title %>
+    </div>
+    <div class="col-xs-4 text-right">
+        <%= data.products[i].price %> <%= plugins.translate('uah') %>
+    </div>
+
+    <div class="col-xs-12"><hr /></div>
+
+    <% } %>
+
+    <% } else { %>
+
+    <div class="col-xs-12 animated fadeIn">
+        <p class="lead"><%= plugins.translate('there-no-data') %></p>
+    </div>
+
+    <% } %>
+</div>
+
+
+<% if (data.count > limit) { %>
+
+<div class="row" data-paginator="true">
+    <div class="col-xs-12 text-center">
+        <ul class="pagination animated fadeIn">
+
+            <% if (page == 0) { %>
+                <li class="disabled"><a><%= plugins.translate('prev') %></a></li>
+            <% } else {%>
+                <li><a data-nav="true" data-page="<%= page-1 %>"><%= plugins.translate('prev') %></a></li>
+            <% } %>
+
+            <% for (var i=0; i < data.count / limit; i++) { %>
+
+            <% if (i == page) { %>
+                <li class="active"><a><%= i+1 %></a></li>
+            <% } else { %>
+                <li><a data-nav="true" data-page="<%= i %>"><%= i+1 %></a></li>
+            <% } %>
+
+            <% } %>
+
+            <% if (data.count <= offset + limit) { %>
+                <li class="disabled"><a><%= plugins.translate('next') %></a></li>
+            <% } else {%>
+                <li><a data-nav="true" data-page="<%= page+1 %>"><%= plugins.translate('next') %></a></li>
+            <% } %>
+
+        </ul>
+    </div>
+</div>
+
+<% } %>

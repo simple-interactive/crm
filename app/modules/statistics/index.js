@@ -8,7 +8,9 @@ modules.statistics = function(){
         productId: null,
         status: null,
         paymentMethod: null,
-        query: null
+        query: null,
+        limit: 30,
+        offset: 0
     };
 
     this.ingredients = [];
@@ -19,7 +21,7 @@ modules.statistics = function(){
 
         services.loader.show();
 
-        services.api.statisticsCommon(function(common){
+        services.api.statisticsFilters(function(common){
 
             self.ingredients = common.ingredients;
             self.products = common.products;
@@ -52,6 +54,8 @@ modules.statistics = function(){
             $(self.element).find('[data-filter]').find('[data-product] option:selected').removeAttr('selected');
             $(self.element).find('[data-filter]').find('[data-product]').selecter('update');
 
+            self.filterData.offset = 0;
+
             self.grid();
         });
 
@@ -62,6 +66,8 @@ modules.statistics = function(){
 
             $(self.element).find('[data-filter]').find('[data-section] option:selected').removeAttr('selected');
             $(self.element).find('[data-filter]').find('[data-section]').selecter('update');
+
+            self.filterData.offset = 0;
 
             self.grid();
         });
@@ -80,6 +86,7 @@ modules.statistics = function(){
 
                 if ($(this).val()) {
                     self.filterData.ingredientId = null;
+                    self.filterData.offset = 0;
                     self.grid();
                 }
             }
@@ -113,6 +120,8 @@ modules.statistics = function(){
             $(self.element).find('[data-ingredient]').find('.input-group-btn').removeClass('open');
 
             self.filterData.ingredientId = $(this).data('id');
+            self.filterData.offset = 0;
+
             self.grid();
         });
 
@@ -127,6 +136,7 @@ modules.statistics = function(){
                 $(self.element).find('[data-value=endTime]').data("DateTimePicker").minDate(event.date);
             }
 
+            self.filterData.offset = 0;
             self.grid();
         });
 
@@ -135,19 +145,22 @@ modules.statistics = function(){
 
         $(self.element).find('[data-filter]').find('[data-status]').on('change', function(){
             self.filterData.status = $(this).val();
+            self.filterData.offset = 0;
             self.grid();
         });
 
         $(self.element).find('[data-filter]').find('[data-payment-method]').on('change', function(){
             self.filterData.paymentMethod = $(this).val();
+            self.filterData.offset = 0;
             self.grid();
         });
 
         $(self.element).find('[data-filter]').find('[data-query]').on('keyup', function(event){
 
-            self.filterData.paymentMethod = $(this).val();
+            self.filterData.query = $(this).val();
 
             if (event.keyCode == 13) {
+                self.filterData.offset = 0;
                 self.grid();
             }
         });
@@ -157,8 +170,31 @@ modules.statistics = function(){
 
         services.loader.show();
 
+        services.api.statisticsData(self.filterData, function(data){
+
+            var gridData = {
+                data: data,
+                limit: self.filterData.limit,
+                offset: self.filterData.offset,
+                page: self.filterData.offset / self.filterData.limit
+            };
+
+            $(self.element).find('[data-order-price]').html(data.price);
+
+            self.view.render('statistics/view/list', gridData, function(tpl){
+                $(self.element).find('[data-grid]').html(tpl);
+
+                $(self.element).find('[data-paginator] [data-page]').on('click', function(){
+                    self.filterData.offset = self.filterData.limit * $(this).data('page');
+                    self.grid();
+                });
+
+                services.loader.hide();
+            });
+        });
+
         setTimeout(function(){
-            services.loader.hide();
+
         }, 1000);
     };
 

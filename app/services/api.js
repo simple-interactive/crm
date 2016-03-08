@@ -250,35 +250,17 @@ window.services.api = function(){
      * Gets common information
      * @param {Function} successCallback
      */
-    this.statisticsCommon = function(successCallback){
+    this.statisticsFilters = function(successCallback){
+        self.call('get', 'statistics/filters', {}, successCallback);
+    };
 
-        successCallback({
-            ingredients: [{
-                id: 'ing-id1',
-                title: 'Ingredient1'
-            },{
-                id: 'ing-id2',
-                title: 'Ingredient2'
-            }],
-            products: [{
-                id: 'prod-1',
-                title: 'Product 1'
-            },{
-                id: 'prod-2',
-                title: 'Product 2'
-            }],
-            sections: [{
-                id: 'sec-2',
-                title: 'Section 1'
-            }, {
-                id: 'sec-3',
-                title: 'Section 2'
-            }]
-        });
-
-        return;
-
-        self.call('get', 'statistics/common', {}, successCallback);
+    /**
+     * Gets statistics data
+     * @param {Object} data
+     * @param {Function} successCallback
+     */
+    this.statisticsData = function(data, successCallback){
+        self.call('get', 'statistics/data', data, successCallback);
     };
 
     /**
