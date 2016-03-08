@@ -38,8 +38,8 @@ module.exports = function(grunt) {
                         'bower_components/bootstrap/dist/js/bootstrap.js',
                         'bower_components/icheck/icheck.js',
                         'bower_components/selecter/jquery.fs.selecter.js',
-                        'bower_components/moment/locale/ru.js',
                         'bower_components/moment/moment.js',
+                        'bower_components/moment/locale/ru.js',
                         'bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
                         'app/**/*.js'
                     ]
