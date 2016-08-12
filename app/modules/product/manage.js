@@ -173,11 +173,11 @@ modules.productManage = function(){
 
         var errors = [];
 
-        if (self.product.title.length < 2 || self.product.title.length > 30) {
+        if (self.product.title.length < 2 || self.product.title.length > 100) {
             errors.push('title');
         }
 
-        if (self.product.description.length < 10 || self.product.description.length > 200) {
+        if (self.product.description.length < 10 || self.product.description.length > 400) {
             errors.push('description');
         }
 
